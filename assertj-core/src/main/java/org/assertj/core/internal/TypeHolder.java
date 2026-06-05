@@ -32,6 +32,8 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 
 import org.assertj.core.util.ClassNameComparator;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An abstract type holder which provides to pair a specific entities for types.
@@ -48,8 +50,8 @@ abstract class TypeHolder<T> {
     this(DEFAULT_CLASS_COMPARATOR);
   }
 
-  public TypeHolder(Comparator<Class<?>> comparator) {
-    typeHolder = new TreeMap<>(requireNonNull(comparator, "Comparator must not be null"));
+  public TypeHolder(@NonNull Comparator<Class<?>> comparator) {
+    typeHolder = new TreeMap<>(comparator);
   }
 
   /**
@@ -63,7 +65,7 @@ abstract class TypeHolder<T> {
    * @param clazz the class for which to find a entity
    * @return the most relevant entity, or {@code null} if on entity could be found
    */
-  public T get(Class<?> clazz) {
+  public @Nullable T get(Class<?> clazz) {
     Class<?> relevantType = getRelevantClass(clazz);
     return relevantType == null ? null : typeHolder.get(relevantType);
   }
@@ -125,7 +127,7 @@ abstract class TypeHolder<T> {
    * @param cls type to find a relevant class.
    * @return the most relevant class.
    */
-  private Class<?> getRelevantClass(Class<?> cls) {
+  private @Nullable Class<?> getRelevantClass(Class<?> cls) {
     Set<Class<?>> keys = typeHolder.keySet();
     if (keys.contains(cls)) return cls;
 

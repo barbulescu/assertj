@@ -102,6 +102,8 @@ import java.util.stream.Collectors;
 
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author Alex Ruiz
@@ -143,14 +145,14 @@ public class Strings {
   }
 
   @VisibleForTesting
-  public Comparator<?> getComparator() {
+  public @Nullable Comparator<?> getComparator() {
     if (comparisonStrategy instanceof ComparatorBasedComparisonStrategy) {
       return ((ComparatorBasedComparisonStrategy) comparisonStrategy).getComparator();
     }
     return null;
   }
 
-  public void assertNullOrEmpty(AssertionInfo info, CharSequence actual) {
+  public void assertNullOrEmpty(AssertionInfo info, @Nullable CharSequence actual) {
     if (actual != null && hasContent(actual)) throw failures.failure(info, shouldBeNullOrEmpty(actual));
   }
 
@@ -379,7 +381,7 @@ public class Strings {
     return result.toString();
   }
 
-  public void assertEqualsNormalizingWhitespace(AssertionInfo info, CharSequence actual, CharSequence expected) {
+  public void assertEqualsNormalizingWhitespace(AssertionInfo info, @Nullable CharSequence actual, CharSequence expected) {
     if (actual != null) checkCharSequenceIsNotNull(expected);
     String normalizedActual = normalizeWhitespace(actual);
     String normalizedExpected = normalizeWhitespace(expected);
@@ -387,7 +389,7 @@ public class Strings {
       throw failures.failure(info, shouldBeEqualNormalizingWhitespace(actual, expected), normalizedActual, normalizedExpected);
   }
 
-  public void assertNotEqualsNormalizingWhitespace(AssertionInfo info, CharSequence actual, CharSequence expected) {
+  public void assertNotEqualsNormalizingWhitespace(AssertionInfo info, @Nullable CharSequence actual, CharSequence expected) {
     if (actual != null) checkCharSequenceIsNotNull(expected);
     String normalizedActual = normalizeWhitespace(actual);
     String normalizedExpected = normalizeWhitespace(expected);
@@ -412,7 +414,7 @@ public class Strings {
     return result.toString().trim();
   }
 
-  public void assertEqualsNormalizingPunctuationAndWhitespace(AssertionInfo info, CharSequence actual, CharSequence expected) {
+  public void assertEqualsNormalizingPunctuationAndWhitespace(AssertionInfo info, @Nullable CharSequence actual, CharSequence expected) {
     if (actual != null) checkCharSequenceIsNotNull(expected);
     String normalizedActual = normalizeWhitespaceAndPunctuation(actual);
     String normalizedExpected = normalizeWhitespaceAndPunctuation(expected);
@@ -425,7 +427,7 @@ public class Strings {
     return input == null ? null : normalizeWhitespace(input.toString().replaceAll(PUNCTUATION_REGEX, EMPTY_STRING));
   }
 
-  public void assertEqualsToNormalizingUnicode(AssertionInfo info, CharSequence actual, CharSequence expected) {
+  public void assertEqualsToNormalizingUnicode(AssertionInfo info, @Nullable CharSequence actual, CharSequence expected) {
     if (actual != null) checkCharSequenceIsNotNull(expected);
     String normalizedActual = Normalizer.normalize(actual, Normalizer.Form.NFC);
     String normalizedExpected = Normalizer.normalize(expected, Normalizer.Form.NFC);
@@ -738,7 +740,7 @@ public class Strings {
                                                  info.representation()));
   }
 
-  public void assertIsSubstringOf(AssertionInfo info, CharSequence actual, CharSequence sequence) {
+  public void assertIsSubstringOf(AssertionInfo info, CharSequence actual, @NonNull CharSequence sequence) {
     assertNotNull(info, actual);
     requireNonNull(sequence, "Expecting CharSequence not to be null");
     if (stringContains(sequence.toString(), actual.toString())) return;

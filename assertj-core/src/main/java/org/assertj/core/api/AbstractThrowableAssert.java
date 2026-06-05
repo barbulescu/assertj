@@ -238,7 +238,8 @@ public abstract class AbstractThrowableAssert<SELF extends AbstractThrowableAsse
    */
   public AbstractThrowableAssert<?, ?> rootCause() {
     throwables.assertHasRootCause(info, actual);
-    return new ThrowableAssert<>(org.assertj.core.util.Throwables.getRootCause(actual)).withAssertionState(myself);
+    Throwable rootCause = org.assertj.core.util.Throwables.getRootCause(actual);
+    return new ThrowableAssert<>(rootCause).withAssertionState(myself);
   }
 
   /**

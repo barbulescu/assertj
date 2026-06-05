@@ -40,6 +40,7 @@ import org.assertj.core.internal.ComparatorBasedComparisonStrategy;
 import org.assertj.core.internal.Objects;
 import org.assertj.core.internal.TypeComparators;
 import org.assertj.core.util.introspection.IntrospectionError;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base class for all implementations of assertions for {@link Object}s.
@@ -1059,7 +1060,7 @@ public abstract class AbstractObjectAssert<SELF extends AbstractObjectAssert<SEL
    * @throws NullPointerException if given {@code from} function is null
    * @see #usingComparatorForType(Comparator, Class)
    */
-  public <T> SELF returns(T expected, Function<ACTUAL, T> from) {
+  public <T> SELF returns(T expected, @NonNull Function<ACTUAL, T> from) {
     requireNonNull(from, "The given getter method/Function must not be null");
     isNotNull();
     Objects objects = getComparatorBasedObjectAssertions(expected);
@@ -1090,7 +1091,7 @@ public abstract class AbstractObjectAssert<SELF extends AbstractObjectAssert<SEL
    * @see #usingComparatorForType(Comparator, Class)
    * @since 3.22.0
    */
-  public <T> SELF doesNotReturn(T expected, Function<ACTUAL, T> from) {
+  public <T> SELF doesNotReturn(T expected, @NonNull Function<ACTUAL, T> from) {
     requireNonNull(from, "The given getter method/Function must not be null");
     isNotNull();
     Objects objects = getComparatorBasedObjectAssertions(expected);

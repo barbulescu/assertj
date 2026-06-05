@@ -26,6 +26,8 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 
+import org.jspecify.annotations.Nullable;
+
 public class ClassUtils {
 
   /**
@@ -44,7 +46,7 @@ public class ClassUtils {
    * @return the {@code List} of superclasses in order going up from this one
    * {@code null} if null input
    */
-  public static List<Class<?>> getAllSuperclasses(final Class<?> cls) {
+  public static @Nullable List<Class<?>> getAllSuperclasses(@Nullable final Class<?> cls) {
     if (cls == null) {
       return null;
     }
@@ -71,7 +73,7 @@ public class ClassUtils {
    * @param cls the class to look up, may be {@code null}
    * @return the {@code List} of interfaces in order, {@code null} if null input
    */
-  public static List<Class<?>> getAllInterfaces(Class<?> cls) {
+  public static @Nullable List<Class<?>> getAllInterfaces(@Nullable Class<?> cls) {
     if (cls == null) return null;
 
     LinkedHashSet<Class<?>> interfacesFound = new LinkedHashSet<>();
@@ -113,7 +115,7 @@ public class ClassUtils {
    *         {@link Character}, {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}, {@link Void}).
    * @since 3.24.0
    */
-  public static boolean isPrimitiveOrWrapper(final Class<?> type) {
+  public static boolean isPrimitiveOrWrapper(@Nullable final Class<?> type) {
     if (type == null) {
       return false;
     }
@@ -131,7 +133,7 @@ public class ClassUtils {
    *              {@link OptionalLong}, {@link OptionalDouble}).
    * @since 3.24.0
    */
-  public static boolean isOptionalOrPrimitiveOptional(final Class<?> type) {
+  public static boolean isOptionalOrPrimitiveOptional(@Nullable final Class<?> type) {
     if (type == null) {
       return false;
     }

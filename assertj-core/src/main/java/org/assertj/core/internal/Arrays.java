@@ -94,8 +94,10 @@ import java.util.Set;
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.api.Condition;
 import org.assertj.core.data.Index;
+import org.assertj.core.internal.annotation.Contract;
 import org.assertj.core.util.ArrayWrapperList;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Assertions for object and primitive arrays. It trades off performance for DRY.
@@ -128,7 +130,7 @@ public class Arrays {
   }
 
   @VisibleForTesting
-  public Comparator<?> getComparator() {
+  public @Nullable Comparator<?> getComparator() {
     if (!(comparisonStrategy instanceof ComparatorBasedComparisonStrategy)) return null;
     return ((ComparatorBasedComparisonStrategy) comparisonStrategy).getComparator();
   }
@@ -212,7 +214,7 @@ public class Arrays {
       throw failures.failure(info, shouldContain(actual, values, notFound, comparisonStrategy));
   }
 
-  void assertcontainsAll(AssertionInfo info, Failures failures, Object array, Iterable<?> iterable) {
+  void assertContainsAll(AssertionInfo info, Failures failures, Object array, Iterable<?> iterable) {
     if (iterable == null) throw iterableToLookForIsNull();
     assertNotNull(info, array);
     Object[] values = newArrayList(iterable).toArray();
@@ -472,7 +474,7 @@ public class Arrays {
     if (!found.isEmpty()) throw failures.failure(info, shouldNotContain(array, values, found, comparisonStrategy));
   }
 
-  private boolean arrayContains(Object array, Object value) {
+  private boolean arrayContains(Object array, @Nullable Object value) {
     return comparisonStrategy.arrayContains(array, value);
   }
 
@@ -724,7 +726,8 @@ public class Arrays {
   }
 
   @SuppressWarnings("unchecked")
-  private static <T> List<T> asList(Object array) {
+  @Contract("null -> null; !null -> !null")
+  private static <T> @Nullable List<T> asList(Object array) {
     if (array == null) return null;
     checkArgument(isArray(array), "The object should be an array");
     int length = getLength(array);
@@ -767,7 +770,8 @@ public class Arrays {
     return failures.failure(info, shouldEndWith(array, sequence, comparisonStrategy));
   }
 
-  static void assertNotNull(AssertionInfo info, Object array) {
+  @Contract("_, null -> fail")
+  static void assertNotNull(AssertionInfo info, @Nullable Object array) {
     Objects.instance().assertNotNull(info, array);
   }
 

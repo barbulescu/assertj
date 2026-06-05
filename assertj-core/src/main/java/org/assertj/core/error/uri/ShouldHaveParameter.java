@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.assertj.core.error.BasicErrorMessageFactory;
 import org.assertj.core.error.ErrorMessageFactory;
+import org.jspecify.annotations.Nullable;
 
 public class ShouldHaveParameter extends BasicErrorMessageFactory {
 
@@ -47,14 +48,14 @@ public class ShouldHaveParameter extends BasicErrorMessageFactory {
     return new ShouldHaveParameter(SHOULD_HAVE_PARAMETER_BUT_WAS_MISSING, actual, name);
   }
 
-  public static ErrorMessageFactory shouldHaveParameter(Object actual, String name, String expectedValue) {
+  public static ErrorMessageFactory shouldHaveParameter(Object actual, String name, @Nullable String expectedValue) {
     if (expectedValue == null)
       return new ShouldHaveParameter(SHOULD_HAVE_PARAMETER_WITHOUT_VALUE_BUT_PARAMETER_WAS_MISSING, actual, name);
     return new ShouldHaveParameter(SHOULD_HAVE_PARAMETER_WITH_VALUE_BUT_PARAMETER_WAS_MISSING, actual, name,
                                    expectedValue);
   }
 
-  public static ErrorMessageFactory shouldHaveParameter(Object actual, String name, String expectedValue,
+  public static ErrorMessageFactory shouldHaveParameter(Object actual, String name, @Nullable String expectedValue,
                                                         List<String> actualValues) {
     if (expectedValue == null)
       return new ShouldHaveParameter(multipleValues(actualValues) ? SHOULD_HAVE_PARAMETER_WITHOUT_VALUE_BUT_HAD_VALUES

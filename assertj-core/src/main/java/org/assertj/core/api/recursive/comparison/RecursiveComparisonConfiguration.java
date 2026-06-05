@@ -49,6 +49,7 @@ import org.assertj.core.internal.TypeComparators;
 import org.assertj.core.internal.TypeMessages;
 import org.assertj.core.presentation.Representation;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 public class RecursiveComparisonConfiguration extends AbstractRecursiveOperationConfiguration {
 

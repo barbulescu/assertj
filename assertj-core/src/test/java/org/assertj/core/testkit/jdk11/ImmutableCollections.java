@@ -39,6 +39,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Copied from {@code java.util.ImmutableCollections}.
  * 
@@ -847,7 +849,7 @@ class ImmutableCollections {
     }
 
     @Override
-    public V get(Object o) {
+    public @Nullable V get(Object o) {
       return o.equals(k0) ? v0 : null; // implicit nullcheck of o
     }
 
@@ -956,7 +958,7 @@ class ImmutableCollections {
 
     @Override
     @SuppressWarnings("unchecked")
-    public V get(Object o) {
+    public @Nullable V get(Object o) {
       if (size == 0) {
         Objects.requireNonNull(o);
         return null;

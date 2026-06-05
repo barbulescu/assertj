@@ -753,7 +753,7 @@ public class ObjectArrays {
    *           {@code Iterable}, in any order.
    */
   public <E> void assertContainsAll(AssertionInfo info, E[] actual, Iterable<? extends E> other) {
-    arrays.assertcontainsAll(info, failures, actual, other);
+    arrays.assertContainsAll(info, failures, actual, other);
   }
 
   public void assertContainsAnyOf(AssertionInfo info, Object[] actual, Object[] values) {

@@ -21,6 +21,7 @@ import org.assertj.core.api.ArraySortedAssert;
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.data.Index;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for arrays of {@code byte}s.
@@ -539,7 +540,7 @@ public class ByteArrays {
     Arrays.assertIsSortedAccordingToComparator(info, failures, actual, comparator);
   }
 
-  public byte[] toByteArray(int[] ints) {
+  public byte @Nullable[] toByteArray(int @Nullable[] ints) {
     if (ints == null) {
       return null;
     }

@@ -31,6 +31,7 @@ import org.assertj.core.presentation.BinaryRepresentation;
 import org.assertj.core.presentation.HexadecimalRepresentation;
 import org.assertj.core.presentation.Representation;
 import org.assertj.core.presentation.UnicodeRepresentation;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Writable information about an assertion.

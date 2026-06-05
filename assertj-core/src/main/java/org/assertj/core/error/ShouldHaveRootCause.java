@@ -21,9 +21,11 @@ import static org.assertj.core.util.Throwables.getStackTrace;
 
 import java.util.Objects;
 
+import org.jspecify.annotations.Nullable;
+
 public class ShouldHaveRootCause extends BasicErrorMessageFactory {
 
-  public static ErrorMessageFactory shouldHaveRootCauseWithMessage(Throwable actual, Throwable actualCause,
+  public static ErrorMessageFactory shouldHaveRootCauseWithMessage(Throwable actual, @Nullable Throwable actualCause,
                                                                    String expectedMessage) {
     checkArgument(actual != null, "actual should not be null");
     checkArgument(expectedMessage != null, "expected root cause message should not be null");
@@ -31,7 +33,7 @@ public class ShouldHaveRootCause extends BasicErrorMessageFactory {
     return new ShouldHaveRootCause(actual, actualCause, expectedMessage);
   }
 
-  public static ErrorMessageFactory shouldHaveRootCause(Throwable actual, Throwable actualCause, Throwable expectedCause) {
+  public static ErrorMessageFactory shouldHaveRootCause(Throwable actual, @Nullable Throwable actualCause, Throwable expectedCause) {
     checkArgument(actual != null, "actual should not be null");
     checkArgument(expectedCause != null, "expected cause should not be null");
     // actualCause has no cause

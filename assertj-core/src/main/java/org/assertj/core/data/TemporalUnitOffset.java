@@ -25,6 +25,8 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalUnit;
 import java.util.Objects;
 
+import org.jspecify.annotations.NonNull;
+
 /**
  * Base class for {@link TemporalOffset} on basis of {@link TemporalUnit}.
  * @since 3.7.0
@@ -41,8 +43,7 @@ public abstract class TemporalUnitOffset implements TemporalOffset<Temporal> {
    * @throws NullPointerException if the given unit is {@code null}.
    * @throws IllegalArgumentException if the given value is negative.
    */
-  public TemporalUnitOffset(long value, TemporalUnit unit) {
-    requireNonNull(unit);
+  public TemporalUnitOffset(long value, @NonNull TemporalUnit unit) {
     checkThatValueIsPositive(value);
     this.value = value;
     this.unit = unit;

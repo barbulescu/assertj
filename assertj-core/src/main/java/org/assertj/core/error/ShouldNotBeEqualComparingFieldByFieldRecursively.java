@@ -17,6 +17,7 @@ package org.assertj.core.error;
 
 import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.assertj.core.presentation.Representation;
+import org.jspecify.annotations.Nullable;
 
 public class ShouldNotBeEqualComparingFieldByFieldRecursively extends BasicErrorMessageFactory {
 
@@ -40,7 +41,7 @@ public class ShouldNotBeEqualComparingFieldByFieldRecursively extends BasicError
                                                                 actual, other);
   }
 
-  public static ErrorMessageFactory shouldNotBeEqualComparingFieldByFieldRecursively(Object actual) {
+  public static ErrorMessageFactory shouldNotBeEqualComparingFieldByFieldRecursively(@Nullable Object actual) {
     if (actual == null)
       return new ShouldNotBeEqualComparingFieldByFieldRecursively("%n" +
                                                                   "Expecting actual not to be equal to other but both are null.");

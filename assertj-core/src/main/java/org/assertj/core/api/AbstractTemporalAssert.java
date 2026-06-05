@@ -29,6 +29,7 @@ import org.assertj.core.internal.ComparatorBasedComparisonStrategy;
 import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.Objects;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base class for all implementations of assertions for {@link Temporal}s.
@@ -74,7 +75,7 @@ public abstract class AbstractTemporalAssert<SELF extends AbstractTemporalAssert
    * @throws AssertionError if the actual {@code Temporal} is {@code null}.
    * @throws AssertionError if the actual {@code Temporal} is not close to the given one for a provided offset.
    */
-  public SELF isCloseTo(TEMPORAL other, TemporalOffset<? super TEMPORAL> offset) {
+  public SELF isCloseTo(@NonNull TEMPORAL other, @NonNull TemporalOffset<? super TEMPORAL> offset) {
     Objects.instance().assertNotNull(info, actual);
     requireNonNull(other, "The temporal object to compare actual with should not be null");
     requireNonNull(offset, "The offset should not be null");
@@ -102,7 +103,7 @@ public abstract class AbstractTemporalAssert<SELF extends AbstractTemporalAssert
    * @throws AssertionError if the actual {@code Temporal} is {@code null}.
    * @throws AssertionError if the actual {@code Temporal} is not close to the given within the provided offset.
    */
-  public SELF isCloseTo(String otherAsString, TemporalOffset<? super TEMPORAL> offset) {
+  public SELF isCloseTo(@NonNull String otherAsString, TemporalOffset<? super TEMPORAL> offset) {
     requireNonNull(otherAsString, "The String representing of the temporal object to compare actual with should not be null");
     return isCloseTo(parse(otherAsString), offset);
   }

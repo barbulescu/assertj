@@ -69,6 +69,7 @@ import java.util.stream.Stream;
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.util.VisibleForTesting;
 import org.assertj.core.util.diff.Delta;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Reusable assertions for <code>{@link File}</code>s.
@@ -182,7 +183,7 @@ public class Files {
    * @throws UncheckedIOException if an I/O error occurs.
    * @throws AssertionError if the file does not have the binary content.
    */
-  public void assertHasBinaryContent(AssertionInfo info, File actual, byte[] expected) {
+  public void assertHasBinaryContent(AssertionInfo info, File actual, @NonNull byte[] expected) {
     requireNonNull(expected, "The binary content to compare to should not be null");
     assertIsFile(info, actual);
     try {
@@ -221,7 +222,7 @@ public class Files {
    * @throws UncheckedIOException if an I/O error occurs.
    * @throws AssertionError if the file does not have the text content.
    */
-  public void assertHasContent(AssertionInfo info, File actual, String expected, Charset charset) {
+  public void assertHasContent(AssertionInfo info, File actual, @NonNull String expected, Charset charset) {
     requireNonNull(expected, "The text to compare to should not be null");
     assertIsFile(info, actual);
     try {
@@ -389,7 +390,7 @@ public class Files {
    * @throws AssertionError if the given {@code File} does not have a parent.
    * @throws AssertionError if the given {@code File} parent is not equal to the expected one.
    */
-  public void assertHasParent(AssertionInfo info, File actual, File expected) {
+  public void assertHasParent(AssertionInfo info, File actual, @NonNull File expected) {
     requireNonNull(expected, "The expected parent file should not be null.");
     assertNotNull(info, actual);
     try {
@@ -413,7 +414,7 @@ public class Files {
    * @throws AssertionError if the actual {@code File} is not a file (ie a directory).
    * @throws AssertionError if the actual {@code File} does not have the expected extension.
    */
-  public void assertHasExtension(AssertionInfo info, File actual, String expected) {
+  public void assertHasExtension(AssertionInfo info, File actual, @NonNull String expected) {
     requireNonNull(expected, "The expected extension should not be null.");
     assertIsFile(info, actual);
     String extension = getFileExtension(actual).orElseThrow(() -> failures.failure(info, shouldHaveExtension(actual, expected)));
@@ -436,7 +437,7 @@ public class Files {
    * @throws AssertionError if the actual {@code File} is {@code null}.
    * @throws AssertionError if the actual {@code File} does not have the expected name.
    */
-  public void assertHasName(AssertionInfo info, File actual, String expected) {
+  public void assertHasName(AssertionInfo info, File actual, @NonNull String expected) {
     assertNotNull(info, actual);
     requireNonNull(expected, "The expected name should not be null.");
     if (expected.equals(actual.getName())) return;
@@ -457,7 +458,7 @@ public class Files {
     throw failures.failure(info, shouldHaveNoParent(actual));
   }
 
-  public void assertHasDigest(AssertionInfo info, File actual, MessageDigest digest, byte[] expected) {
+  public void assertHasDigest(AssertionInfo info, File actual, @NonNull MessageDigest digest, byte[] expected) {
     requireNonNull(digest, "The message digest algorithm should not be null");
     requireNonNull(expected, "The binary representation of digest to compare to should not be null");
     assertExists(info, actual);

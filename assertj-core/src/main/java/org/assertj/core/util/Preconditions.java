@@ -21,6 +21,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Supplier;
 
 import org.assertj.core.api.filter.FilterOperator;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Verifies correct argument values and state. Borrowed from Guava.

@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.assertj.core.api.AssertionInfo;
+import org.jspecify.annotations.Nullable;
 
 public class ElementsShouldSatisfy extends BasicErrorMessageFactory {
 
@@ -67,7 +68,7 @@ public class ElementsShouldSatisfy extends BasicErrorMessageFactory {
     super(message + describeErrors(unsatisfiedRequirements, info), actual);
   }
 
-  private static String describeErrors(Map<Integer, UnsatisfiedRequirement> unsatisfiedRequirements, AssertionInfo info) {
+  private static @Nullable String describeErrors(Map<Integer, UnsatisfiedRequirement> unsatisfiedRequirements, AssertionInfo info) {
     return escapePercent(unsatisfiedRequirements.entrySet().stream()
                                                 .map(requirementAtIndex -> describe(requirementAtIndex, info))
                                                 .collect(joining(format("%n%n"))));
@@ -79,7 +80,7 @@ public class ElementsShouldSatisfy extends BasicErrorMessageFactory {
     return unsatisfiedRequirement.describe(index, info);
   }
 
-  private static String describeErrors(List<UnsatisfiedRequirement> elementsNotSatisfyingRequirements, AssertionInfo info) {
+  private static @Nullable String describeErrors(List<UnsatisfiedRequirement> elementsNotSatisfyingRequirements, AssertionInfo info) {
     return escapePercent(elementsNotSatisfyingRequirements.stream()
                                                           .map(unsatisfiedRequirement -> unsatisfiedRequirement.describe(info))
                                                           .collect(joining(format("%n%n"))));

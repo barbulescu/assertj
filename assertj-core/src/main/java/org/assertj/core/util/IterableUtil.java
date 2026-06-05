@@ -23,9 +23,14 @@ import static org.assertj.core.util.Lists.newArrayList;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+
+import org.assertj.core.internal.annotation.Contract;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public final class IterableUtil {
 
@@ -35,7 +40,7 @@ public final class IterableUtil {
    * @param iterable the given {@code Iterable} to check.
    * @return {@code true} if the given {@code Iterable} is {@code null} or empty, otherwise {@code false}.
    */
-  public static boolean isNullOrEmpty(Iterable<?> iterable) {
+  public static boolean isNullOrEmpty(@Nullable Iterable<?> iterable) {
     if (iterable == null) return true;
     if (iterable instanceof Collection && ((Collection<?>) iterable).isEmpty()) return true;
     return !iterable.iterator().hasNext();
@@ -82,7 +87,8 @@ public final class IterableUtil {
    *         null.
    */
   @SuppressWarnings("unchecked")
-  public static <T> T[] toArray(Iterable<? extends T> iterable) {
+  @Contract("null -> null; !null -> !null")
+  public static <T> T @Nullable[] toArray(@Nullable Iterable<? extends T> iterable) {
     if (iterable == null) return null;
     return (T[]) newArrayList(iterable).toArray();
   }
@@ -96,27 +102,27 @@ public final class IterableUtil {
    * @return all the elements from the given {@link Iterable} in an array. {@code null} if given {@link Iterable} is
    *         null.
    */
-  public static <T> T[] toArray(Iterable<? extends T> iterable, Class<T> type) {
+  public static <T> T @Nullable[] toArray(@Nullable Iterable<? extends T> iterable, Class<T> type) {
     if (iterable == null) return null;
     Collection<? extends T> collection = toCollection(iterable);
     T[] array = newArray(type, collection.size());
     return collection.toArray(array);
   }
 
-  public static <T> Collection<T> toCollection(Iterable<T> iterable) {
+  public static <T> @Nullable Collection<T> toCollection(Iterable<T> iterable) {
     return iterable instanceof Collection ? (Collection<T>) iterable : newArrayList(iterable);
   }
 
   @SafeVarargs
-  public static <T> Iterable<T> iterable(T... elements) {
+  public static <T> @Nullable Iterable<T> iterable(@Nullable T... elements) {
     if (elements == null) return null;
     ArrayList<T> list = newArrayList();
-    java.util.Collections.addAll(list, elements);
+    Collections.addAll(list, elements);
     return list;
   }
 
   @SafeVarargs
-  public static <T> Iterator<T> iterator(T... elements) {
+  public static <T> @Nullable Iterator<T> iterator(@Nullable T... elements) {
     if (elements == null) return null;
     return iterable(elements).iterator();
   }

@@ -20,6 +20,8 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import static org.assertj.core.util.Preconditions.checkArgument;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Utility methods related to {@code String}s.
  * 
@@ -44,7 +46,7 @@ public final class Strings {
    * @return the given {@code String} surrounded by single quotes, or {@code null} if the given {@code String} is
    *         {@code null}.
    */
-  public static String quote(String s) {
+  public static @Nullable String quote(String s) {
     return s != null ? concat("'", s, "'") : null;
   }
 
@@ -55,7 +57,7 @@ public final class Strings {
    * @return the given object surrounded by single quotes, only if the object is a {@code String}.
    * @see #quote(String)
    */
-  public static Object quote(Object o) {
+  public static @Nullable Object quote(Object o) {
     return o instanceof String ? quote(o.toString()) : o;
   }
 
@@ -66,7 +68,7 @@ public final class Strings {
    * @param objects the objects to concatenate.
    * @return a {@code String} containing the given objects.
    */
-  public static String concat(Object... objects) {
+  public static @Nullable String concat(Object... objects) {
     if (Arrays.isNullOrEmpty(objects)) {
       return null;
     }
@@ -95,7 +97,7 @@ public final class Strings {
    * @param value the String to escape
    * @return the escaped String 
    */
-  public static String escapePercent(String value) {
+  public static @Nullable String escapePercent(String value) {
     return value == null ? null : value.replace("%", "%%");
   }
 
@@ -223,7 +225,7 @@ public final class Strings {
      * @return a {@code String} containing the target {@code String} with the given {@code String} to append added to
      *         the end.
      */
-    public String to(String s) {
+    public @Nullable String to(String s) {
       if (!s.endsWith(toAppend)) {
         return concat(s, toAppend);
       }
@@ -232,11 +234,11 @@ public final class Strings {
   }
 
   // change %%n back to %n which could have been done by calling escapePercent
-  private static String escapePercentExceptWhenFollowedBy_n(String message) {
+  private static @Nullable String escapePercentExceptWhenFollowedBy_n(String message) {
     return revertEscapingPercent_n(escapePercent(message));
   }
 
-  private static String revertEscapingPercent_n(String value) {
+  private static @Nullable String revertEscapingPercent_n(String value) {
     return value == null ? null : value.replace("%%n", "%n");
   }
 

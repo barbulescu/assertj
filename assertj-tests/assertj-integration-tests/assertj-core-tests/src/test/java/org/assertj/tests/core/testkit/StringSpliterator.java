@@ -18,6 +18,8 @@ package org.assertj.tests.core.testkit;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Dummy spliterator for testing purpose
  *
@@ -40,7 +42,7 @@ public class StringSpliterator implements Spliterator<String> {
   }
 
   @Override
-  public Spliterator<String> trySplit() {
+  public @Nullable Spliterator<String> trySplit() {
     return null;
   }
 

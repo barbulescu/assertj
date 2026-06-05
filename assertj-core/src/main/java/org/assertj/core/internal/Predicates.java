@@ -20,6 +20,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 public class Predicates {
 

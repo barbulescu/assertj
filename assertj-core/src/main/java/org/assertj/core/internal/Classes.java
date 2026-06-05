@@ -46,6 +46,7 @@ import java.util.SortedSet;
 
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.util.Arrays;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Reusable assertions for <code>{@link Class}</code>s.
@@ -327,7 +328,7 @@ public class Classes {
    * @param clazz the class to check
    * @throws NullPointerException with an explicit message if the given class is null
    */
-  public void classParameterIsNotNull(Class<?> clazz) {
+  public void classParameterIsNotNull(@NonNull Class<?> clazz) {
     requireNonNull(clazz, "The class to compare actual with should not be null");
   }
 

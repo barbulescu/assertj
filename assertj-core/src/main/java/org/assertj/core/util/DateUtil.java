@@ -28,6 +28,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.assertj.core.internal.annotation.Contract;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 /**
  * Utility methods related to dates.
  *
@@ -176,7 +180,7 @@ public class DateUtil {
    * @param date the date to format.
    * @return the formatted date or null if given the date was null.
    */
-  public static synchronized String formatAsDatetime(Date date) {
+  public static synchronized @Nullable String formatAsDatetime(Date date) {
     return date == null ? null : ISO_DATE_TIME_FORMAT.format(date);
   }
 
@@ -190,7 +194,7 @@ public class DateUtil {
    * @param date the date to format.
    * @return the formatted date or null if given the date was null.
    */
-  public static synchronized String formatAsDatetimeWithMs(Date date) {
+  public static synchronized @Nullable String formatAsDatetimeWithMs(Date date) {
     return date == null ? null : ISO_DATE_TIME_FORMAT_WITH_MS.format(date);
   }
 
@@ -203,7 +207,7 @@ public class DateUtil {
    * @param calendar the calendar to format.
    * @return the formatted calendar or null if the given calendar was null.
    */
-  public static String formatAsDatetime(Calendar calendar) {
+  public static @Nullable String formatAsDatetime(Calendar calendar) {
     return calendar == null ? null : formatAsDatetime(calendar.getTime());
   }
 
@@ -214,7 +218,7 @@ public class DateUtil {
    * @return the corresponding Date or null if the given String is null.
    * @throws RuntimeException encapsulating ParseException if the string can't be parsed as a Date
    */
-  public static synchronized Date parse(String dateAsString) {
+  public static synchronized @Nullable Date parse(String dateAsString) {
     try {
       return dateAsString == null ? null : ISO_DATE_FORMAT.parse(dateAsString);
     } catch (ParseException e) {
@@ -232,7 +236,7 @@ public class DateUtil {
    * @return the corresponding Date with time details or null if the given String is null.
    * @throws RuntimeException encapsulating ParseException if the string can't be parsed as a Date
    */
-  public static synchronized Date parseDatetime(String dateAsString) {
+  public static synchronized @Nullable Date parseDatetime(String dateAsString) {
     try {
       return dateAsString == null ? null : ISO_DATE_TIME_FORMAT.parse(dateAsString);
     } catch (ParseException e) {
@@ -251,7 +255,7 @@ public class DateUtil {
    * @return the corresponding Date with time details or null if the given String is null.
    * @throws RuntimeException encapsulating ParseException if the string can't be parsed as a Date
    */
-  public static synchronized Date parseDatetimeWithMs(String dateAsString) {
+  public static synchronized @Nullable Date parseDatetimeWithMs(String dateAsString) {
     try {
       return dateAsString == null ? null : ISO_DATE_TIME_FORMAT_WITH_MS.parse(dateAsString);
     } catch (ParseException e) {
@@ -265,7 +269,8 @@ public class DateUtil {
    * @param date the date to convert to a Calendar.
    * @return the Calendar corresponding to the given Date or null if the given Date is null.
    */
-  public static Calendar toCalendar(Date date) {
+  @Contract("null -> null; !null -> !null")
+  public static @Nullable Calendar toCalendar(@Nullable Date date) {
     if (date == null) {
       return null;
     }
@@ -281,7 +286,7 @@ public class DateUtil {
    * @return the year of the given Date
    * @throws NullPointerException if given Date is null
    */
-  public static int yearOf(Date date) {
+  public static int yearOf(@NonNull Date date) {
     return toCalendar(date).get(Calendar.YEAR);
   }
 
@@ -384,7 +389,7 @@ public class DateUtil {
    * @param date we want to get the day part (the parameter is read only).
    * @return the truncated date.
    */
-  public static Date truncateTime(Date date) {
+  public static @Nullable Date truncateTime(@Nullable Date date) {
     if (date == null) return null;
     Calendar cal = toCalendar(date);
     cal.set(Calendar.HOUR_OF_DAY, 0);

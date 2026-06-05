@@ -22,6 +22,7 @@ import static org.assertj.core.api.PredicateAssert.assertThatPredicate;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
 // not in org.assertj.core.api package to avoid resolving classes from it
@@ -52,7 +53,7 @@ class Assertions_solving_assertThat_ambiguous_Test {
     }
 
     @Override
-    public T next() {
+    public @Nullable T next() {
       return null;
     }
 

@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.Nullable;
 
 public class PropertyOrFieldSupport {
   private static final String SEPARATOR = ".";
@@ -47,7 +48,7 @@ public class PropertyOrFieldSupport {
     fieldSupport.setAllowUsingPrivateFields(allowUsingPrivateFields);
   }
 
-  public Object getValueOf(String propertyOrFieldName, Object input) {
+  public @Nullable Object getValueOf(String propertyOrFieldName, Object input) {
     checkArgument(propertyOrFieldName != null, "The name of the property/field to read should not be null");
     checkArgument(!propertyOrFieldName.isEmpty(), "The name of the property/field to read should not be empty");
     checkArgument(input != null, "The object to extract property/field from should not be null");
@@ -64,8 +65,8 @@ public class PropertyOrFieldSupport {
     return getSimpleValue(propertyOrFieldName, input);
   }
 
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Object getSimpleValue(String name, Object input) {
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public @Nullable Object getSimpleValue(String name, Object input) {
     // if input is an optional and name is "value", let's get the optional value directly
     if (input instanceof Optional && name.equals("value")) return ((Optional) input).orElse(null);
 

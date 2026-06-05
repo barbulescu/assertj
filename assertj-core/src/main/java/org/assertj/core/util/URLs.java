@@ -29,6 +29,8 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.jspecify.annotations.NonNull;
+
 /**
  * Utility methods related to URLs.
  *

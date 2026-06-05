@@ -73,11 +73,14 @@ import java.util.Set;
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.error.GroupTypeDescription;
 import org.assertj.core.internal.DeepDifference.Difference;
+import org.assertj.core.internal.annotation.Contract;
 import org.assertj.core.util.VisibleForTesting;
 import org.assertj.core.util.introspection.FieldSupport;
 import org.assertj.core.util.introspection.IntrospectionError;
 import org.assertj.core.util.introspection.PropertyOrFieldSupport;
 import org.assertj.core.util.introspection.PropertySupport;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for {@code Object}s.
@@ -114,7 +117,7 @@ public class Objects {
   }
 
   @VisibleForTesting
-  public Comparator<?> getComparator() {
+  public @Nullable Comparator<?> getComparator() {
     return comparisonStrategy instanceof ComparatorBasedComparisonStrategy
         ? ((ComparatorBasedComparisonStrategy) comparisonStrategy).getComparator()
         : null;
@@ -231,16 +234,18 @@ public class Objects {
     return comparisonStrategy.areEqual(actual, other);
   }
 
-  public void assertNull(AssertionInfo info, Object actual) {
+  public void assertNull(AssertionInfo info, @Nullable Object actual) {
     if (actual != null)
       throw failures.failure(info, shouldBeEqual(actual, null, comparisonStrategy, info.representation()));
   }
 
-  public void assertNotNull(AssertionInfo info, Object actual) {
+  @Contract("_, null -> fail")
+  public void assertNotNull(AssertionInfo info, @Nullable Object actual) {
     if (actual == null) throw failures.failure(info, shouldNotBeNull());
   }
 
-  public void assertNotNull(AssertionInfo info, Object actual, String label) {
+  @Contract("_, null, _ -> fail")
+  public void assertNotNull(AssertionInfo info, @Nullable Object actual, String label) {
     if (actual == null) throw failures.failure(info, shouldNotBeNull(label));
   }
 
@@ -482,7 +487,7 @@ public class Objects {
     }
   }
 
-  private <A> Object getPropertyOrFieldValue(A a, String fieldName) {
+  private <A> @Nullable Object getPropertyOrFieldValue(A a, String fieldName) {
     return PropertyOrFieldSupport.COMPARISON.getValueOf(fieldName, a);
   }
 
@@ -561,17 +566,17 @@ public class Objects {
     }
   }
 
-  private <A> Object extractPropertyOrField(A actual, String name) {
+  private <A> @Nullable Object extractPropertyOrField(A actual, String name) {
     return PropertyOrFieldSupport.EXTRACTION.getValueOf(name, actual);
   }
 
-  public <A> void assertHasSameHashCodeAs(AssertionInfo info, A actual, Object other) {
+  public <A> void assertHasSameHashCodeAs(AssertionInfo info, A actual, @NonNull Object other) {
     assertNotNull(info, actual);
     requireNonNull(other, "The object used to compare actual's hash code with should not be null");
     if (actual.hashCode() != other.hashCode()) throw failures.failure(info, shouldHaveSameHashCode(actual, other));
   }
 
-  public <A> void assertDoesNotHaveSameHashCodeAs(AssertionInfo info, A actual, Object other) {
+  public <A> void assertDoesNotHaveSameHashCodeAs(AssertionInfo info, A actual, @NonNull Object other) {
     assertNotNull(info, actual);
     requireNonNull(other, "The object used to compare actual's hash code with should not be null");
     if (actual.hashCode() == other.hashCode())

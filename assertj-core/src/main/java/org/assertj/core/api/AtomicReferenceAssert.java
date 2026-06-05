@@ -25,6 +25,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.assertj.core.presentation.PredicateDescription;
+import org.jspecify.annotations.NonNull;
 
 public class AtomicReferenceAssert<V> extends AbstractAssert<AtomicReferenceAssert<V>, AtomicReference<V>> {
 
@@ -159,7 +160,7 @@ public class AtomicReferenceAssert<V> extends AbstractAssert<AtomicReferenceAsse
    *
    * @since 3.18.0
    */
-  public AtomicReferenceAssert<V> hasValueSatisfying(Consumer<? super V> requirements) {
+  public AtomicReferenceAssert<V> hasValueSatisfying(@NonNull Consumer<? super V> requirements) {
     requireNonNull(requirements, "The Consumer<? super V> expressing the assertions requirements must not be null");
     isNotNull();
     requirements.accept(actual.get());

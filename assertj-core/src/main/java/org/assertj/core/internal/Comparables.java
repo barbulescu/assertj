@@ -37,6 +37,8 @@ import org.assertj.core.error.ShouldBeLess;
 import org.assertj.core.error.ShouldBeLessOrEqual;
 import org.assertj.core.util.TriFunction;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for types that can be compared between each other, most of the time it means <code>{@link Comparable}</code>s 
@@ -65,7 +67,7 @@ public class Comparables {
   }
 
   @VisibleForTesting
-  public Comparator<?> getComparator() {
+  public @Nullable Comparator<?> getComparator() {
     if (comparisonStrategy instanceof ComparatorBasedComparisonStrategy) {
       return ((ComparatorBasedComparisonStrategy) comparisonStrategy).getComparator();
     }
@@ -341,7 +343,7 @@ public class Comparables {
    * @throws NullPointerException if end value is {@code null}.
    * @throws IllegalArgumentException if end value is less than start value.
    */
-  public <T> void assertIsBetween(AssertionInfo info, Comparable<? super T> actual, T start, T end,
+  public <T> void assertIsBetween(AssertionInfo info, Comparable<? super T> actual, @NonNull T start, @NonNull T end,
                                   boolean inclusiveStart, boolean inclusiveEnd) {
     assertNotNull(info, actual);
     requireNonNull(start, "The start range to compare actual with should not be null");

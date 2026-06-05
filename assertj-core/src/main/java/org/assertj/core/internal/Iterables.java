@@ -112,6 +112,8 @@ import org.assertj.core.error.UnsatisfiedRequirement;
 import org.assertj.core.error.ZippedElementsShouldSatisfy.ZipSatisfyError;
 import org.assertj.core.presentation.PredicateDescription;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for <code>{@link Iterable}</code>s.
@@ -153,7 +155,7 @@ public class Iterables {
   }
 
   @VisibleForTesting
-  public Comparator<?> getComparator() {
+  public @Nullable Comparator<?> getComparator() {
     if (comparisonStrategy instanceof ComparatorBasedComparisonStrategy) {
       return ((ComparatorBasedComparisonStrategy) comparisonStrategy).getComparator();
     }
@@ -1158,7 +1160,7 @@ public class Iterables {
                             actual, list(values));
   }
 
-  public <E> void assertAllSatisfy(AssertionInfo info, Iterable<? extends E> actual, Consumer<? super E> requirements) {
+  public <E> void assertAllSatisfy(AssertionInfo info, Iterable<? extends E> actual, @NonNull Consumer<? super E> requirements) {
     assertNotNull(info, actual);
     requireNonNull(requirements, "The Consumer<T> expressing the assertions requirements must not be null");
 
@@ -1197,7 +1199,7 @@ public class Iterables {
   }
 
   public <E> void assertSatisfiesExactlyInAnyOrder(AssertionInfo info, Iterable<? extends E> actual,
-                                                   Consumer<? super E>[] consumers) {
+        @NonNull Consumer<? super E>[] consumers) {
     assertNotNull(info, actual);
     requireNonNull(consumers, "The Consumer<? super E>... expressing the assertions must not be null");
     for (Consumer<? super E> consumer : consumers)
@@ -1213,7 +1215,7 @@ public class Iterables {
       throw failures.failure(info, shouldSatisfyExactlyInAnyOrder(actual));
   }
 
-  public <E> void assertSatisfiesOnlyOnce(AssertionInfo info, Iterable<? extends E> actual, Consumer<? super E> requirements) {
+  public <E> void assertSatisfiesOnlyOnce(AssertionInfo info, Iterable<? extends E> actual, @NonNull Consumer<? super E> requirements) {
     assertNotNull(info, actual);
     requireNonNull(requirements, "The Consumer<? super E> expressing the requirements must not be null");
     List<? extends E> satisfiedElements = stream(actual).filter(byPassingAssertions(requirements))
@@ -1255,8 +1257,8 @@ public class Iterables {
 
   public <ACTUAL_ELEMENT, OTHER_ELEMENT> void assertZipSatisfy(AssertionInfo info,
                                                                Iterable<? extends ACTUAL_ELEMENT> actual,
-                                                               Iterable<OTHER_ELEMENT> other,
-                                                               BiConsumer<? super ACTUAL_ELEMENT, OTHER_ELEMENT> zipRequirements) {
+        @NonNull Iterable<OTHER_ELEMENT> other,
+        @NonNull BiConsumer<? super ACTUAL_ELEMENT, OTHER_ELEMENT> zipRequirements) {
     assertNotNull(info, actual);
     requireNonNull(zipRequirements, "The BiConsumer expressing the assertions requirements must not be null");
     requireNonNull(other, "The iterable to zip actual with must not be null");
@@ -1282,7 +1284,7 @@ public class Iterables {
     }
   }
 
-  public <E> void assertAnySatisfy(AssertionInfo info, Iterable<? extends E> actual, Consumer<? super E> requirements) {
+  public <E> void assertAnySatisfy(AssertionInfo info, Iterable<? extends E> actual, @NonNull Consumer<? super E> requirements) {
     assertNotNull(info, actual);
     requireNonNull(requirements, "The Consumer<T> expressing the assertions requirements must not be null");
 
@@ -1309,7 +1311,7 @@ public class Iterables {
     }
   }
 
-  public <E> void assertNoneSatisfy(AssertionInfo info, Iterable<? extends E> actual, Consumer<? super E> restrictions) {
+  public <E> void assertNoneSatisfy(AssertionInfo info, Iterable<? extends E> actual, @NonNull Consumer<? super E> restrictions) {
     assertNotNull(info, actual);
     requireNonNull(restrictions, "The Consumer<T> expressing the restrictions must not be null");
     List<E> erroneousElements = stream(actual).map(element -> failsRestrictions(element, restrictions))

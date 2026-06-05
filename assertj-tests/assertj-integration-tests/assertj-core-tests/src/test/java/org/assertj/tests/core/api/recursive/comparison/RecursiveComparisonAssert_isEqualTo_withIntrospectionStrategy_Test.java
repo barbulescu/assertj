@@ -37,6 +37,7 @@ import org.assertj.core.api.recursive.comparison.RecursiveComparisonIntrospectio
 import org.assertj.core.internal.Objects;
 import org.assertj.core.util.introspection.IntrospectionError;
 import org.assertj.tests.core.api.recursive.data.Person;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
 class RecursiveComparisonAssert_isEqualTo_withIntrospectionStrategy_Test
@@ -333,7 +334,7 @@ class RecursiveComparisonAssert_isEqualTo_withIntrospectionStrategy_Test
       this.values = asList(values);
     }
 
-    public String getValues() {
+    public @Nullable String getValues() {
       return values == null ? null : values.iterator().next();
     }
   }

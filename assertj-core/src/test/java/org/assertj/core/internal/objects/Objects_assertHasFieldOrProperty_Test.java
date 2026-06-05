@@ -25,6 +25,7 @@ import static org.assertj.core.util.FailureMessages.actualIsNull;
 
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.internal.ObjectsBaseTest;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
 class Objects_assertHasFieldOrProperty_Test extends ObjectsBaseTest {
@@ -123,7 +124,7 @@ class Objects_assertHasFieldOrProperty_Test extends ObjectsBaseTest {
       return "data";
     }
 
-    public Object getField3() {
+    public @Nullable Object getField3() {
       return null;
     }
 

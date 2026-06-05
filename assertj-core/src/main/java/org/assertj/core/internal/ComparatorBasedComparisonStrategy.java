@@ -15,6 +15,8 @@
  */
 package org.assertj.core.internal;
 
+import org.jspecify.annotations.Nullable;
+
 import static org.assertj.core.configuration.ConfigurationProvider.CONFIGURATION_PROVIDER;
 import static org.assertj.core.util.IterableUtil.isNullOrEmpty;
 
@@ -59,7 +61,7 @@ public class ComparatorBasedComparisonStrategy extends AbstractComparisonStrateg
    * @param comparatorDescription the comparator description to use in assertion messages.
    */
   public ComparatorBasedComparisonStrategy(@SuppressWarnings("rawtypes") Comparator comparator,
-                                           String comparatorDescription) {
+                                           @Nullable String comparatorDescription) {
     this.comparator = comparator;
     this.comparatorDescription = comparatorDescription;
   }

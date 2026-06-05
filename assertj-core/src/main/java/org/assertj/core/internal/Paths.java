@@ -78,6 +78,7 @@ import java.util.stream.Stream;
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.util.VisibleForTesting;
 import org.assertj.core.util.diff.Delta;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Core assertion class for {@link Path} assertions
@@ -234,7 +235,7 @@ public class Paths {
     if (!actual.endsWith(end)) throw failures.failure(info, shouldEndWith(actual, end));
   }
 
-  public void assertHasFileName(final AssertionInfo info, Path actual, String fileName) {
+  public void assertHasFileName(final AssertionInfo info, Path actual, @NonNull String fileName) {
     assertNotNull(info, actual);
     requireNonNull(fileName, "expected fileName should not be null");
     if (!actual.getFileName().endsWith(fileName)) throw failures.failure(info, shouldHaveName(actual, fileName));
@@ -275,7 +276,7 @@ public class Paths {
     }
   }
 
-  public void assertHasSameTextualContentAs(AssertionInfo info, Path actual, Charset actualCharset, Path expected,
+  public void assertHasSameTextualContentAs(AssertionInfo info, Path actual, Charset actualCharset, @NonNull Path expected,
                                             Charset expectedCharset) {
     requireNonNull(expected, "The given Path to compare actual content to should not be null");
     checkArgument(Files.exists(expected), "The given Path <%s> to compare actual content to should exist", expected);
@@ -383,7 +384,7 @@ public class Paths {
     }
   }
 
-  public void assertHasFileSystem(AssertionInfo info, Path actual, FileSystem expectedFileSystem) {
+  public void assertHasFileSystem(AssertionInfo info, Path actual, @NonNull FileSystem expectedFileSystem) {
     assertNotNull(info, actual);
     requireNonNull(expectedFileSystem, "The expected file system should not be null");
 
@@ -395,7 +396,7 @@ public class Paths {
     }
   }
 
-  public void assertHasSameFileSystemAs(AssertionInfo info, Path actualPath, Path expectedPath) {
+  public void assertHasSameFileSystemAs(AssertionInfo info, Path actualPath, @NonNull Path expectedPath) {
     assertNotNull(info, actualPath);
     requireNonNull(expectedPath, "The expected path should not be null");
 

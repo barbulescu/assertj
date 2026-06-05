@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Creates and deletes directories in the file system.
  * 
@@ -99,7 +101,7 @@ public final class FolderFixture {
     return parent != null ? concat(parent.relativePath(), separator, name) : name;
   }
 
-  public FolderFixture folder(String path) {
+  public @Nullable FolderFixture folder(String path) {
     String[] names = path.split(separatorAsRegEx());
     if (isNullOrEmpty(names)) return null;
     int i = 0;

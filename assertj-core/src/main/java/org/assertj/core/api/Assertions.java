@@ -116,6 +116,7 @@ import org.assertj.core.util.Paths;
 import org.assertj.core.util.URLs;
 import org.assertj.core.util.introspection.FieldSupport;
 import org.assertj.core.util.introspection.Introspection;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Entry point for assertion methods for different types. Each method in this class is a static factory for a
@@ -1525,7 +1526,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @deprecated use {@link #catchThrowableOfType(Class, ThrowingCallable)} instead.
    */
   @Deprecated
-  public static <THROWABLE extends Throwable> THROWABLE catchThrowableOfType(ThrowingCallable shouldRaiseThrowable,
+  public static <THROWABLE extends Throwable> @Nullable THROWABLE catchThrowableOfType(ThrowingCallable shouldRaiseThrowable,
                                                                              Class<THROWABLE> type) {
     return catchThrowableOfType(type, shouldRaiseThrowable);
   }
@@ -1568,7 +1569,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.26.0
    */
-  public static <THROWABLE extends Throwable> THROWABLE catchThrowableOfType(Class<THROWABLE> type,
+  public static <THROWABLE extends Throwable> @Nullable THROWABLE catchThrowableOfType(Class<THROWABLE> type,
                                                                              ThrowingCallable shouldRaiseThrowable) {
     return ThrowableAssert.catchThrowableOfType(type, shouldRaiseThrowable);
   }
@@ -1596,7 +1597,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static Exception catchException(ThrowingCallable throwingCallable) {
+  public static @Nullable Exception catchException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(Exception.class, throwingCallable);
   }
 
@@ -1623,7 +1624,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static RuntimeException catchRuntimeException(ThrowingCallable throwingCallable) {
+  public static @Nullable RuntimeException catchRuntimeException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(RuntimeException.class, throwingCallable);
   }
 
@@ -1650,7 +1651,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static NullPointerException catchNullPointerException(ThrowingCallable throwingCallable) {
+  public static @Nullable NullPointerException catchNullPointerException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(NullPointerException.class, throwingCallable);
   }
 
@@ -1677,7 +1678,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static IllegalArgumentException catchIllegalArgumentException(ThrowingCallable throwingCallable) {
+  public static @Nullable IllegalArgumentException catchIllegalArgumentException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(IllegalArgumentException.class, throwingCallable);
   }
 
@@ -1704,7 +1705,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static IOException catchIOException(ThrowingCallable throwingCallable) {
+  public static @Nullable IOException catchIOException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(IOException.class, throwingCallable);
   }
 
@@ -1731,7 +1732,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static ReflectiveOperationException catchReflectiveOperationException(ThrowingCallable throwingCallable) {
+  public static @Nullable ReflectiveOperationException catchReflectiveOperationException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(ReflectiveOperationException.class, throwingCallable);
   }
 
@@ -1758,7 +1759,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static IllegalStateException catchIllegalStateException(ThrowingCallable throwingCallable) {
+  public static @Nullable IllegalStateException catchIllegalStateException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(IllegalStateException.class, throwingCallable);
   }
 
@@ -1785,7 +1786,7 @@ public class Assertions implements InstanceOfAssertFactories {
    * @see #catchThrowable(ThrowingCallable)
    * @since 3.22.0
    */
-  public static IndexOutOfBoundsException catchIndexOutOfBoundsException(ThrowingCallable throwingCallable) {
+  public static @Nullable IndexOutOfBoundsException catchIndexOutOfBoundsException(ThrowingCallable throwingCallable) {
     return catchThrowableOfType(IndexOutOfBoundsException.class, throwingCallable);
   }
 

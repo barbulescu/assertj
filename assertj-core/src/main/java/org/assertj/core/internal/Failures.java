@@ -33,6 +33,7 @@ import org.assertj.core.error.MessageFormatter;
 import org.assertj.core.error.ShouldBeEqual;
 import org.assertj.core.util.Throwables;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Failure actions.
@@ -148,7 +149,7 @@ public class Failures {
         : MessageFormatter.instance().format(info.description(), info.representation(), overridingErrorMessage);
   }
 
-  public AssertionError failureIfErrorMessageIsOverridden(AssertionInfo info) {
+  public @Nullable AssertionError failureIfErrorMessageIsOverridden(AssertionInfo info) {
     String overridingErrorMessage = info.overridingErrorMessage();
     return isNullOrEmpty(overridingErrorMessage) ? null
         : failure(MessageFormatter.instance().format(info.description(), info.representation(),

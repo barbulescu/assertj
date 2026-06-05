@@ -25,6 +25,7 @@ import java.util.function.Function;
 
 import org.assertj.core.api.AbstractIterableAssert;
 import org.assertj.core.api.AbstractObjectArrayAssert;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Understands how to retrieve fields or values from a collection/array of objects.
@@ -48,7 +49,7 @@ public class FieldsOrPropertiesExtractor {
    * @param extractor the extractor function
    * @return the extracted values
    */
-  public static <F, T> T[] extract(F[] objects, Function<? super F, T> extractor) {
+  public static <F, T> T @Nullable[] extract(F[] objects, Function<? super F, T> extractor) {
     checkObjectToExtractFromIsNotNull(objects);
     List<T> result = extract(newArrayList(objects), extractor);
     return toArray(result);

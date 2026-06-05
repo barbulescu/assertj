@@ -15,6 +15,8 @@
  */
 package org.assertj.core.util.diff.myers;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Copy from https://code.google.com/p/java-diff-utils/.
  * <p>
@@ -71,7 +73,7 @@ public abstract class PathNode {
    * <code>null</code>
    * if none found.
    */
-  public final PathNode previousSnake() {
+  public final @Nullable PathNode previousSnake() {
     if (isBootstrap())
       return null;
     if (!isSnake() && prev != null)

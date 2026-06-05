@@ -22,6 +22,8 @@ import static org.assertj.core.util.Preconditions.checkArgument;
 
 import java.util.Objects;
 
+import org.jspecify.annotations.NonNull;
+
 /**
  * A positive offset.
  *

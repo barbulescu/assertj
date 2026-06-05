@@ -25,6 +25,7 @@ import org.assertj.core.annotation.Beta;
 import org.assertj.core.api.Condition;
 import org.assertj.core.description.Description;
 import org.assertj.core.description.JoinDescription;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Container {@link Condition} that maps the object under test and then check the resulting mapped value against its nested {@link Condition}.

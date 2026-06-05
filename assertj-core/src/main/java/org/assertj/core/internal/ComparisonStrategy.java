@@ -15,6 +15,8 @@
  */
 package org.assertj.core.internal;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Describes the contract to implement a <b>consistent</b> comparison strategy that covers :<br>
  * - comparing two objects for equality and order<br>
@@ -122,7 +124,7 @@ public interface ComparisonStrategy {
    * @param value the object to look for in given array
    * @return true if given array contains given value according to the implemented comparison strategy, false otherwise.
    */
-  boolean arrayContains(Object array, Object value);
+  boolean arrayContains(Object array, @Nullable Object value);
 
   /**
    * Returns true if given string contains given sequence according to the implemented comparison strategy, false otherwise.

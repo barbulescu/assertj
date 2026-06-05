@@ -19,6 +19,8 @@ import static org.assertj.core.error.ShouldBeInstance.shouldBeInstance;
 
 import java.util.concurrent.Callable;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Assertion methods for {@link Throwable}s.
  * <p>
@@ -36,7 +38,7 @@ public class ThrowableAssert<ACTUAL extends Throwable> extends AbstractThrowable
     void call() throws Throwable;
   }
 
-  public ThrowableAssert(ACTUAL actual) {
+  public ThrowableAssert(@Nullable ACTUAL actual) {
     super(actual, ThrowableAssert.class);
   }
 
@@ -45,7 +47,7 @@ public class ThrowableAssert<ACTUAL extends Throwable> extends AbstractThrowable
   }
 
   @SuppressWarnings("unchecked")
-  private static <V, THROWABLE extends Throwable> THROWABLE buildThrowableAssertFromCallable(Callable<V> callable) throws AssertionError {
+  private static <V, THROWABLE extends Throwable> @Nullable THROWABLE buildThrowableAssertFromCallable(Callable<V> callable) throws AssertionError {
     try {
       callable.call();
       // fail if the expected exception was *not* thrown
@@ -61,7 +63,7 @@ public class ThrowableAssert<ACTUAL extends Throwable> extends AbstractThrowable
     }
   }
 
-  public static Throwable catchThrowable(ThrowingCallable shouldRaiseThrowable) {
+  public static @Nullable Throwable catchThrowable(ThrowingCallable shouldRaiseThrowable) {
     try {
       shouldRaiseThrowable.call();
     } catch (Throwable throwable) {
@@ -71,13 +73,13 @@ public class ThrowableAssert<ACTUAL extends Throwable> extends AbstractThrowable
   }
 
   @Deprecated
-  public static <THROWABLE extends Throwable> THROWABLE catchThrowableOfType(ThrowingCallable shouldRaiseThrowable,
+  public static <THROWABLE extends Throwable> @Nullable THROWABLE catchThrowableOfType(ThrowingCallable shouldRaiseThrowable,
                                                                              Class<THROWABLE> type) {
     return catchThrowableOfType(type, shouldRaiseThrowable);
   }
 
   @SuppressWarnings("unchecked")
-  public static <THROWABLE extends Throwable> THROWABLE catchThrowableOfType(Class<THROWABLE> type,
+  public static <THROWABLE extends Throwable> @Nullable THROWABLE catchThrowableOfType(Class<THROWABLE> type,
                                                                              ThrowingCallable shouldRaiseThrowable) {
     Throwable throwable = catchThrowable(shouldRaiseThrowable);
     if (throwable == null) return null;

@@ -22,6 +22,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Creates an error message indicating that an assertion that verifies a group of elements is sorted failed.<br>
  * A group of elements can be a collection or an array.
@@ -74,7 +76,7 @@ public class ShouldBeSorted extends BasicErrorMessageFactory {
    * @throws IllegalArgumentException if group can't be converted to a List
    */
   @SuppressWarnings("unchecked")
-  private static List<?> groupAsList(Object group) {
+  private static @Nullable List<?> groupAsList(Object group) {
     if (group.getClass().isArray()) {
       return wrap(group);
     } else if (group instanceof Collection<?>) {

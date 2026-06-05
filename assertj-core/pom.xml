@@ -96,6 +96,10 @@
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+    </dependency>
     <!-- Test -->
     <dependency>
       <groupId>commons-io</groupId>
@@ -325,6 +329,7 @@
             <bannedDependencies>
               <includes>
                 <include>net.bytebuddy:byte-buddy</include>
+                <include>org.jspecify:jspecify</include>
               </includes>
               <excludes>
                 <exclude>org.assertj:assertj-core</exclude>
@@ -458,6 +463,10 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>am.ik.maven</groupId>
+        <artifactId>nullability-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

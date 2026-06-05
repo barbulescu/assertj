@@ -22,6 +22,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Queue with a fixed maximum size. When an element is added to a full queue, the oldest element
  * is removed before the new element is added.
@@ -63,12 +65,12 @@ final class RotatingQueue<T> extends AbstractQueue<T> {
   }
 
   @Override
-  public T poll() {
+  public @Nullable T poll() {
     return data.poll();
   }
 
   @Override
-  public T peek() {
+  public @Nullable T peek() {
     return data.peek();
   }
 }

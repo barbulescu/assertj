@@ -22,6 +22,7 @@ import org.assertj.core.description.Description;
 import org.assertj.core.internal.AbstractComparisonStrategy;
 import org.assertj.core.presentation.Representation;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Formats the messages to be included in assertion errors.

@@ -74,6 +74,8 @@ import org.assertj.core.api.Condition;
 import org.assertj.core.data.MapEntry;
 import org.assertj.core.error.UnsatisfiedRequirement;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for <code>{@link Map}</code>s.
@@ -163,7 +165,7 @@ public class Maps {
     return Optional.of(entry);
   }
 
-  public void assertNullOrEmpty(AssertionInfo info, Map<?, ?> actual) {
+  public void assertNullOrEmpty(AssertionInfo info, @Nullable Map<?, ?> actual) {
     if (actual != null && !actual.isEmpty()) throw failures.failure(info, shouldBeNullOrEmpty(actual));
   }
 
@@ -261,7 +263,7 @@ public class Maps {
   }
 
   public <K, V> void assertHasEntrySatisfying(AssertionInfo info, Map<K, V> actual, K key,
-                                              Consumer<? super V> valueRequirements) {
+        @NonNull Consumer<? super V> valueRequirements) {
     assertContainsKey(info, actual, key);
     requireNonNull(valueRequirements, "The Consumer<V> expressing the assertions requirements must not be null");
     V value = actual.get(key);
@@ -326,7 +328,7 @@ public class Maps {
     if (!found.isEmpty()) throw failures.failure(info, shouldNotContain(actual, entries, found));
   }
 
-  public <K, V> void assertContainsKeys(AssertionInfo info, Map<K, V> actual, K[] keys) {
+  public <K, V> void assertContainsKeys(AssertionInfo info, Map<K, V> actual, @NonNull K[] keys) {
     assertNotNull(info, actual);
     requireNonNull(keys, keysToLookForIsNull("array of keys"));
     if (actual.isEmpty() && keys.length == 0) return;
@@ -345,7 +347,7 @@ public class Maps {
     if (containsKey(actual, key)) throw failures.failure(info, shouldNotContainKey(actual, key));
   }
 
-  public <K, V> void assertDoesNotContainKeys(AssertionInfo info, Map<K, V> actual, K[] keys) {
+  public <K, V> void assertDoesNotContainKeys(AssertionInfo info, Map<K, V> actual, @NonNull K[] keys) {
     assertNotNull(info, actual);
     requireNonNull(keys, keysToLookForIsNull("array of keys"));
     Set<K> found = getFoundKeys(actual, keys);
@@ -461,7 +463,7 @@ public class Maps {
     if (!containsValue(actual, value)) throw failures.failure(info, shouldContainValue(actual, value));
   }
 
-  public <K, V> void assertContainsValues(AssertionInfo info, Map<K, V> actual, V[] values) {
+  public <K, V> void assertContainsValues(AssertionInfo info, Map<K, V> actual, @NonNull V[] values) {
     assertNotNull(info, actual);
     requireNonNull(values, "The array of values to look for should not be null");
     if (actual.isEmpty() && values.length == 0) return;

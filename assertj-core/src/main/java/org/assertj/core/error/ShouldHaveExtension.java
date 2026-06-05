@@ -19,6 +19,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Objects;
 
+import org.jspecify.annotations.NonNull;
+
 /**
  * Creates an error message indicating that a {@code File} or a {@code Path} should have extension.
  * 
@@ -32,8 +34,7 @@ public class ShouldHaveExtension extends BasicErrorMessageFactory {
         : new ShouldHaveExtension(actual, actualExtension, expectedExtension);
   }
 
-  public static ShouldHaveExtension shouldHaveExtension(Path actual, String actualExtension, String expectedExtension) {
-    Objects.requireNonNull(actualExtension);
+  public static ShouldHaveExtension shouldHaveExtension(Path actual, @NonNull String actualExtension, String expectedExtension) {
     return new ShouldHaveExtension(actual, actualExtension, expectedExtension);
   }
 

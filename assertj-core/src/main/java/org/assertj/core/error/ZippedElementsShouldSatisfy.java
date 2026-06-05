@@ -21,6 +21,7 @@ import static org.assertj.core.util.Strings.escapePercent;
 import java.util.List;
 
 import org.assertj.core.api.AssertionInfo;
+import org.jspecify.annotations.Nullable;
 
 public class ZippedElementsShouldSatisfy extends BasicErrorMessageFactory {
 
@@ -44,7 +45,7 @@ public class ZippedElementsShouldSatisfy extends BasicErrorMessageFactory {
           actual, other);
   }
 
-  private static String describe(AssertionInfo info, List<ZipSatisfyError> zipSatisfyErrors) {
+  private static @Nullable String describe(AssertionInfo info, List<ZipSatisfyError> zipSatisfyErrors) {
     List<String> errorsToStrings = zipSatisfyErrors.stream()
                                                    .map(error -> ZipSatisfyError.describe(info, error))
                                                    .collect(toList());

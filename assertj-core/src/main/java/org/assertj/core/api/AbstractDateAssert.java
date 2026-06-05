@@ -51,6 +51,7 @@ import org.assertj.core.configuration.ConfigurationProvider;
 import org.assertj.core.internal.ComparatorBasedComparisonStrategy;
 import org.assertj.core.internal.Dates;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base class for all implementations of assertions for {@link Date}s.
@@ -3380,7 +3381,7 @@ public abstract class AbstractDateAssert<SELF extends AbstractDateAssert<SELF>> 
    * @return this assertion object.
    */
   @CheckReturnValue
-  public SELF withDateFormat(String userCustomDateFormatPattern) {
+  public SELF withDateFormat(@NonNull String userCustomDateFormatPattern) {
     requireNonNull(userCustomDateFormatPattern, DATE_FORMAT_PATTERN_SHOULD_NOT_BE_NULL);
     return withDateFormat(new SimpleDateFormat(userCustomDateFormatPattern));
   }
@@ -3459,7 +3460,7 @@ public abstract class AbstractDateAssert<SELF extends AbstractDateAssert<SELF>> 
    *
    * @param userCustomDateFormat the new Date format used for String based Date assertions.
    */
-  public static void registerCustomDateFormat(DateFormat userCustomDateFormat) {
+  public static void registerCustomDateFormat(@NonNull DateFormat userCustomDateFormat) {
     ConfigurationProvider.loadRegisteredConfiguration();
     requireNonNull(userCustomDateFormat, DATE_FORMAT_SHOULD_NOT_BE_NULL);
     userDateFormats.get().add(userCustomDateFormat);
@@ -3506,7 +3507,7 @@ public abstract class AbstractDateAssert<SELF extends AbstractDateAssert<SELF>> 
    *
    * @param userCustomDateFormatPattern the new Date format pattern used for String based Date assertions.
    */
-  public static void registerCustomDateFormat(String userCustomDateFormatPattern) {
+  public static void registerCustomDateFormat(@NonNull String userCustomDateFormatPattern) {
     requireNonNull(userCustomDateFormatPattern, DATE_FORMAT_PATTERN_SHOULD_NOT_BE_NULL);
     registerCustomDateFormat(new SimpleDateFormat(userCustomDateFormatPattern));
   }

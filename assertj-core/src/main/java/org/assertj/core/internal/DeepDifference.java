@@ -43,6 +43,8 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Tests two objects for differences by doing a 'deep' comparison.
  *
@@ -111,7 +113,7 @@ public class DeepDifference {
       this(path, actual, other, null);
     }
 
-    public Difference(List<String> path, Object actual, Object other, String description) {
+    public Difference(List<String> path, Object actual, Object other, @Nullable String description) {
       this.path = path;
       this.actual = actual;
       this.other = other;

@@ -25,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 /**
  * Utility methods related to {@link Path}s.
  *

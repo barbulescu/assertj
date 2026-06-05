@@ -36,16 +36,18 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.Nullable;
+
 // dummy stream for testing purpose
 public class StringStream implements Stream<String> {
 
   @Override
-  public Iterator<String> iterator() {
+  public @Nullable Iterator<String> iterator() {
     return null;
   }
 
   @Override
-  public Spliterator<String> spliterator() {
+  public @Nullable Spliterator<String> spliterator() {
     return null;
   }
 
@@ -55,22 +57,22 @@ public class StringStream implements Stream<String> {
   }
 
   @Override
-  public Stream<String> sequential() {
+  public @Nullable Stream<String> sequential() {
     return null;
   }
 
   @Override
-  public Stream<String> parallel() {
+  public @Nullable Stream<String> parallel() {
     return null;
   }
 
   @Override
-  public Stream<String> unordered() {
+  public @Nullable Stream<String> unordered() {
     return null;
   }
 
   @Override
-  public Stream<String> onClose(Runnable closeHandler) {
+  public @Nullable Stream<String> onClose(Runnable closeHandler) {
     return null;
   }
 
@@ -78,77 +80,77 @@ public class StringStream implements Stream<String> {
   public void close() {}
 
   @Override
-  public Stream<String> filter(Predicate<? super String> predicate) {
+  public @Nullable Stream<String> filter(Predicate<? super String> predicate) {
     return null;
   }
 
   @Override
-  public <R> Stream<R> map(Function<? super String, ? extends R> mapper) {
+  public <R> @Nullable Stream<R> map(Function<? super String, ? extends R> mapper) {
     return null;
   }
 
   @Override
-  public IntStream mapToInt(ToIntFunction<? super String> mapper) {
+  public @Nullable IntStream mapToInt(ToIntFunction<? super String> mapper) {
     return null;
   }
 
   @Override
-  public LongStream mapToLong(ToLongFunction<? super String> mapper) {
+  public @Nullable LongStream mapToLong(ToLongFunction<? super String> mapper) {
     return null;
   }
 
   @Override
-  public DoubleStream mapToDouble(ToDoubleFunction<? super String> mapper) {
+  public @Nullable DoubleStream mapToDouble(ToDoubleFunction<? super String> mapper) {
     return null;
   }
 
   @Override
-  public <R> Stream<R> flatMap(Function<? super String, ? extends Stream<? extends R>> mapper) {
+  public <R> @Nullable Stream<R> flatMap(Function<? super String, ? extends Stream<? extends R>> mapper) {
     return null;
   }
 
   @Override
-  public IntStream flatMapToInt(Function<? super String, ? extends IntStream> mapper) {
+  public @Nullable IntStream flatMapToInt(Function<? super String, ? extends IntStream> mapper) {
     return null;
   }
 
   @Override
-  public LongStream flatMapToLong(Function<? super String, ? extends LongStream> mapper) {
+  public @Nullable LongStream flatMapToLong(Function<? super String, ? extends LongStream> mapper) {
     return null;
   }
 
   @Override
-  public DoubleStream flatMapToDouble(Function<? super String, ? extends DoubleStream> mapper) {
+  public @Nullable DoubleStream flatMapToDouble(Function<? super String, ? extends DoubleStream> mapper) {
     return null;
   }
 
   @Override
-  public Stream<String> distinct() {
+  public @Nullable Stream<String> distinct() {
     return null;
   }
 
   @Override
-  public Stream<String> sorted() {
+  public @Nullable Stream<String> sorted() {
     return null;
   }
 
   @Override
-  public Stream<String> sorted(Comparator<? super String> comparator) {
+  public @Nullable Stream<String> sorted(Comparator<? super String> comparator) {
     return null;
   }
 
   @Override
-  public Stream<String> peek(Consumer<? super String> action) {
+  public @Nullable Stream<String> peek(Consumer<? super String> action) {
     return null;
   }
 
   @Override
-  public Stream<String> limit(long maxSize) {
+  public @Nullable Stream<String> limit(long maxSize) {
     return null;
   }
 
   @Override
-  public Stream<String> skip(long n) {
+  public @Nullable Stream<String> skip(long n) {
     return null;
   }
 
@@ -159,47 +161,47 @@ public class StringStream implements Stream<String> {
   public void forEachOrdered(Consumer<? super String> action) {}
 
   @Override
-  public Object[] toArray() {
+  public Object @Nullable[] toArray() {
     return null;
   }
 
   @Override
-  public <A> A[] toArray(IntFunction<A[]> generator) {
+  public <A> A @Nullable[] toArray(IntFunction<A[]> generator) {
     return null;
   }
 
   @Override
-  public String reduce(String identity, BinaryOperator<String> accumulator) {
+  public @Nullable String reduce(String identity, BinaryOperator<String> accumulator) {
     return null;
   }
 
   @Override
-  public Optional<String> reduce(BinaryOperator<String> accumulator) {
+  public @Nullable Optional<String> reduce(BinaryOperator<String> accumulator) {
     return null;
   }
 
   @Override
-  public <U> U reduce(U identity, BiFunction<U, ? super String, U> accumulator, BinaryOperator<U> combiner) {
+  public <U> @Nullable U reduce(U identity, BiFunction<U, ? super String, U> accumulator, BinaryOperator<U> combiner) {
     return null;
   }
 
   @Override
-  public <R> R collect(Supplier<R> supplier, BiConsumer<R, ? super String> accumulator, BiConsumer<R, R> combiner) {
+  public <R> @Nullable R collect(Supplier<R> supplier, BiConsumer<R, ? super String> accumulator, BiConsumer<R, R> combiner) {
     return null;
   }
 
   @Override
-  public <R, A> R collect(Collector<? super String, A, R> collector) {
+  public <R, A> @Nullable R collect(Collector<? super String, A, R> collector) {
     return null;
   }
 
   @Override
-  public Optional<String> min(Comparator<? super String> comparator) {
+  public @Nullable Optional<String> min(Comparator<? super String> comparator) {
     return null;
   }
 
   @Override
-  public Optional<String> max(Comparator<? super String> comparator) {
+  public @Nullable Optional<String> max(Comparator<? super String> comparator) {
     return null;
   }
 
@@ -224,12 +226,12 @@ public class StringStream implements Stream<String> {
   }
 
   @Override
-  public Optional<String> findFirst() {
+  public @Nullable Optional<String> findFirst() {
     return null;
   }
 
   @Override
-  public Optional<String> findAny() {
+  public @Nullable Optional<String> findAny() {
     return null;
   }
 }

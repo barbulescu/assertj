@@ -22,6 +22,8 @@ import static org.assertj.core.util.Preconditions.checkNotNullOrEmpty;
 
 import java.lang.reflect.Method;
 
+import org.jspecify.annotations.NonNull;
+
 /**
  * Utility class for reflective method invocation.
  *

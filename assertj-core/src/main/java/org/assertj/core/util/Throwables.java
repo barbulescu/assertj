@@ -33,7 +33,9 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import org.assertj.core.internal.annotation.Contract;
 import org.assertj.core.util.introspection.IntrospectionError;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Utility methods related to <code>{@link Throwable}</code>s.
@@ -49,7 +51,7 @@ public final class Throwables {
 
   private Throwables() {}
 
-  private static final Function<Throwable, String> ERROR_DESCRIPTION_EXTRACTOR = throwable -> {
+  private static final Function<Throwable, @Nullable String> ERROR_DESCRIPTION_EXTRACTOR = throwable -> {
     Throwable cause = throwable.getCause();
     if (cause == null) return throwable.getMessage();
     // error has a cause, display the cause message and the first stack trace elements.
@@ -94,7 +96,7 @@ public final class Throwables {
     return filtered;
   }
 
-  private static List<StackTraceElement> stackTraceInCurrentThread() {
+  private static @Nullable List<StackTraceElement> stackTraceInCurrentThread() {
     return newArrayList(Thread.currentThread().getStackTrace());
   }
 
@@ -123,7 +125,7 @@ public final class Throwables {
    *   at examples.StackTraceFilterExample.main(StackTraceFilterExample.java:20)</code></pre>
    * @param throwable the {@code Throwable} to filter stack trace.
    */
-  public static void removeAssertJRelatedElementsFromStackTrace(Throwable throwable) {
+  public static void removeAssertJRelatedElementsFromStackTrace(@Nullable Throwable throwable) {
     if (throwable == null) return;
     List<StackTraceElement> purgedStack = list();
     boolean firstAssertjStackTraceElementFound = false;
@@ -163,6 +165,7 @@ public final class Throwables {
    * @param throwable the {@code Throwable} to get root cause from.
    * @return the root cause if any, else {@code null}.
    */
+  @Contract("null -> null; !null -> !null")
   public static Throwable getRootCause(Throwable throwable) {
     if (throwable.getCause() == null) return null;
     Throwable cause;
@@ -202,7 +205,7 @@ public final class Throwables {
                  .collect(toList());
   }
 
-  public static StackTraceElement getFirstStackTraceElementFromTest(StackTraceElement[] stacktrace) {
+  public static @Nullable StackTraceElement getFirstStackTraceElementFromTest(StackTraceElement[] stacktrace) {
     for (StackTraceElement element : stacktrace) {
       String className = element.getClassName();
       if (isProxiedAssertionClass(className)

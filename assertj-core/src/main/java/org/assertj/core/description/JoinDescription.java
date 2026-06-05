@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The {@code Description} combining multiple {@code Description}s. It'll honor the nested descriptions and will indent

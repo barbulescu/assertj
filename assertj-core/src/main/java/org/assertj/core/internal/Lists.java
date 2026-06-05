@@ -35,6 +35,8 @@ import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.api.Condition;
 import org.assertj.core.data.Index;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for <code>{@link List}</code>s.
@@ -72,7 +74,7 @@ public class Lists {
   }
 
   @VisibleForTesting
-  public Comparator<?> getComparator() {
+  public @Nullable Comparator<?> getComparator() {
     if (comparisonStrategy instanceof ComparatorBasedComparisonStrategy) {
       return ((ComparatorBasedComparisonStrategy) comparisonStrategy)
                                                                      .getComparator();
@@ -180,7 +182,7 @@ public class Lists {
    * @throws AssertionError if the actual list elements are not mutually comparable according to given Comparator.
    */
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public void assertIsSortedAccordingToComparator(AssertionInfo info, List<?> actual, Comparator<?> comparator) {
+  public void assertIsSortedAccordingToComparator(AssertionInfo info, List<?> actual, @NonNull Comparator<?> comparator) {
     assertNotNull(info, actual);
     requireNonNull(comparator, "The given comparator should not be null");
     try {
@@ -244,7 +246,7 @@ public class Lists {
     throw failures.failure(info, shouldBeAtIndex(actual, condition, index, actual.get(index.value)));
   }
 
-  public <T> void satisfies(AssertionInfo info, List<? extends T> actual, Consumer<? super T> requirements, Index index) {
+  public <T> void satisfies(AssertionInfo info, List<? extends T> actual, @NonNull Consumer<? super T> requirements, Index index) {
     assertNotNull(info, actual);
     requireNonNull(requirements, "The Consumer expressing the assertions requirements must not be null");
     checkIndexValueIsValid(index, actual.size() - 1);

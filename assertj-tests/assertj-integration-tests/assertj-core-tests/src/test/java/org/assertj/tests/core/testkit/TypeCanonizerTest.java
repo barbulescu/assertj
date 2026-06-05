@@ -27,6 +27,7 @@ import org.assertj.core.api.AssertDelegateTarget;
 import org.assertj.core.api.ListAssert;
 import org.assertj.core.api.MapAssert;
 import org.assertj.core.api.ObjectAssert;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -40,75 +41,75 @@ class TypeCanonizerTest {
 
   private static class Api {
 
-    public static <T> Asssert<T> m(List<? extends T> in) {
+    public static <T> @Nullable Asssert<T> m(List<? extends T> in) {
       return null;
     }
 
-    public static <T> Asssert<T> mSame(List<? extends T> in) {
+    public static <T> @Nullable Asssert<T> mSame(List<? extends T> in) {
       return null;
     }
 
-    public static <T> Asssert<? extends T> mExtends(List<? extends T> in) {
+    public static <T> @Nullable Asssert<? extends T> mExtends(List<? extends T> in) {
       return null;
     }
 
-    public static <ELEMENT> Asssert<? extends ELEMENT> mExtendsElement(List<? extends ELEMENT> in) {
+    public static <ELEMENT> @Nullable Asssert<? extends ELEMENT> mExtendsElement(List<? extends ELEMENT> in) {
       return null;
     }
 
-    public static <T> Asssert<? super T> mSuper(List<? extends T> in) {
+    public static <T> @Nullable Asssert<? super T> mSuper(List<? extends T> in) {
       return null;
     }
 
-    public static <ELEMENT> Asssert<? super ELEMENT> mSuperElement(List<? extends ELEMENT> in) {
+    public static <ELEMENT> @Nullable Asssert<? super ELEMENT> mSuperElement(List<? extends ELEMENT> in) {
       return null;
     }
 
-    public static <T> AbstractListAssert<?, List<? extends T>, T, ObjectAssert<T>> complex1(List<? extends T> in) {
+    public static <T> @Nullable AbstractListAssert<?, List<? extends T>, T, ObjectAssert<T>> complex1(List<? extends T> in) {
       return null;
     }
 
-    public static <T> AbstractListAssert<?, List<? extends T>, T, ObjectAssert<T>> complex2(List<? extends T> in) {
+    public static <T> @Nullable AbstractListAssert<?, List<? extends T>, T, ObjectAssert<T>> complex2(List<? extends T> in) {
       return null;
     }
 
-    public static <T extends AssertDelegateTarget> T returnsT(T assertion) {
+    public static <T extends AssertDelegateTarget> @Nullable T returnsT(T assertion) {
       return null;
     }
 
-    public static <T extends AssertDelegateTarget> T returnsT2(T assertion) {
+    public static <T extends AssertDelegateTarget> @Nullable T returnsT2(T assertion) {
       return null;
     }
 
-    public static <K, V> MapAssert<K, V> doubleTypeVariables(Map<K, V> actual) {
+    public static <K, V> @Nullable MapAssert<K, V> doubleTypeVariables(Map<K, V> actual) {
       return null;
     }
 
-    public static <K, V> MapAssert<K, V> doubleTypeVariables2(Map<K, V> actual) {
+    public static <K, V> @Nullable MapAssert<K, V> doubleTypeVariables2(Map<K, V> actual) {
       return null;
     }
 
-    public static <ELEMENT> ListAssert<ELEMENT> listAssert(List<? extends ELEMENT> actual) {
+    public static <ELEMENT> @Nullable ListAssert<ELEMENT> listAssert(List<? extends ELEMENT> actual) {
       return null;
     }
 
-    public static <T> ListAssert<T> listAssert2(List<? extends T> actual) {
+    public static <T> @Nullable ListAssert<T> listAssert2(List<? extends T> actual) {
       return null;
     }
 
-    public static <T> T[] genericArray(T[] actual) {
+    public static <T> T @Nullable[] genericArray(T[] actual) {
       return null;
     }
 
-    public static <ELEMENT> ELEMENT[] genericArray2(ELEMENT[] actual) {
+    public static <ELEMENT> ELEMENT @Nullable[] genericArray2(ELEMENT[] actual) {
       return null;
     }
 
-    public static <T> T[][] doubleGenericArray(T[] actual) {
+    public static <T> T @Nullable[][] doubleGenericArray(T[] actual) {
       return null;
     }
 
-    public static <ELEMENT> ELEMENT[][] doubleGenericArray2(ELEMENT[] actual) {
+    public static <ELEMENT> ELEMENT @Nullable[][] doubleGenericArray2(ELEMENT[] actual) {
       return null;
     }
   }

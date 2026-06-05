@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 import org.assertj.core.util.DoubleComparator;
 import org.assertj.core.util.FloatComparator;
 import org.assertj.core.util.PathNaturalOrderComparator;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An internal holder of the comparators for type. It is used to store comparators for registered classes.
@@ -59,7 +60,7 @@ public class TypeComparators extends TypeHolder<Comparator<?>> {
    * @param clazz the class for which to find a comparator
    * @return the most relevant comparator, or {@code null} if no comparator could be found
    */
-  public Comparator<?> getComparatorForType(Class<?> clazz) {
+  public @Nullable Comparator<?> getComparatorForType(Class<?> clazz) {
     return super.get(clazz);
   }
 

@@ -36,6 +36,7 @@ import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.data.Index;
 import org.assertj.core.error.ShouldHaveDimensions;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Assertions for object and primitive two-dimensional arrays. It trades off performance for DRY.
@@ -57,7 +58,7 @@ public class Arrays2D {
   }
 
   @VisibleForTesting
-  public void assertNullOrEmpty(AssertionInfo info, Failures failures, Object array) {
+  public void assertNullOrEmpty(AssertionInfo info, Failures failures, @Nullable Object array) {
     if (array == null) return;
     if (countArrayElements(array) > 0) throw failures.failure(info, shouldBeNullOrEmpty(array));
   }

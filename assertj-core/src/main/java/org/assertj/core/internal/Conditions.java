@@ -28,6 +28,7 @@ import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.api.Condition;
 import org.assertj.core.condition.AllOf;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Verifies that a value satisfies a <code>{@link Condition}</code>.
@@ -133,7 +134,7 @@ public class Conditions {
    * @param args as in {@link String#format(String, Object...)}
    * @throws NullPointerException if the given {@code Condition} is {@code null}.
    */
-  public void assertIsNotNull(Condition<?> condition, String format, Object... args) {
+  public void assertIsNotNull(@NonNull Condition<?> condition, String format, Object... args) {
     requireNonNull(condition, format(format, args));
   }
 }

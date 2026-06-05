@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.assertj.core.api.AbstractThrowableAssert;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.engine.JupiterTestEngine;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.testkit.engine.EngineTestKit;
@@ -34,7 +35,7 @@ public class TestKitUtils {
 
   private TestKitUtils() {}
 
-  public static AbstractThrowableAssert<?, ? extends Throwable> assertThatTest(Class<?> testClass, String... config) {
+  public static AbstractThrowableAssert<?, ? extends Throwable> assertThatTest(Class<?> testClass, @Nullable String... config) {
     checkClass(testClass);
 
     Logger logger = Logger.getLogger("org.junit.jupiter");

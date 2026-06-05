@@ -29,6 +29,7 @@ import org.assertj.core.internal.UnambiguousRepresentation;
 import org.assertj.core.presentation.Representation;
 import org.assertj.core.util.VisibleForTesting;
 import org.assertj.core.util.introspection.PropertyOrFieldSupport;
+import org.jspecify.annotations.Nullable;
 
 public class AssertionErrorCreator {
 
@@ -135,7 +136,7 @@ public class AssertionErrorCreator {
     throw error;
   }
 
-  private static String headingFrom(Description description) {
+  private static @Nullable String headingFrom(Description description) {
     return description == null ? null : DescriptionFormatter.instance().format(description);
   }
 
@@ -168,7 +169,7 @@ public class AssertionErrorCreator {
   }
 
   @SuppressWarnings("unchecked")
-  private static List<Throwable> extractFailuresOf(Object multipleFailuresError) {
+  private static @Nullable List<Throwable> extractFailuresOf(Object multipleFailuresError) {
     return (List<Throwable>) PropertyOrFieldSupport.EXTRACTION.getValueOf("failures", multipleFailuresError);
   }
 

@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
+import org.jspecify.annotations.NonNull;
+
 /**
  * Reusable utils for digest processing
  *
@@ -34,7 +36,7 @@ public final class Digests {
 
   private Digests() {}
 
-  public static String toHex(byte[] digest) {
+  public static String toHex(@NonNull byte[] digest) {
     requireNonNull(digest, shouldNotBeNull("digest")::create);
     StringBuilder hex = new StringBuilder(digest.length * 2);
     for (byte b : digest) {
@@ -43,7 +45,7 @@ public final class Digests {
     return hex.toString();
   }
 
-  public static byte[] fromHex(String digest) {
+  public static byte[] fromHex(@NonNull String digest) {
     requireNonNull(digest, shouldNotBeNull("digest")::create);
     byte[] bytes = new byte[digest.length() / 2];
     for (int i = 0; i < bytes.length; i++) {
@@ -52,7 +54,7 @@ public final class Digests {
     return bytes;
   }
 
-  public static DigestDiff digestDiff(InputStream stream, MessageDigest messageDigest, byte[] expected) throws IOException {
+  public static DigestDiff digestDiff(@NonNull InputStream stream, @NonNull MessageDigest messageDigest, @NonNull byte[] expected) throws IOException {
     requireNonNull(stream, "The stream should not be null");
     requireNonNull(messageDigest, "The digest should not be null");
     requireNonNull(expected, "The expected should not be null");

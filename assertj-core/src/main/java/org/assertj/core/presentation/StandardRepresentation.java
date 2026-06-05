@@ -76,6 +76,7 @@ import org.assertj.core.util.VisibleForTesting;
 import org.assertj.core.util.diff.ChangeDelta;
 import org.assertj.core.util.diff.DeleteDelta;
 import org.assertj.core.util.diff.InsertDelta;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Standard java object representation.
@@ -211,7 +212,7 @@ public class StandardRepresentation implements Representation {
    * @return the {@code toString} representation of the given object.
    */
   @Override
-  public String toStringOf(Object object) {
+  public @Nullable String toStringOf(Object object) {
     if (object == null) return null;
     if (hasCustomFormatterFor(object)) return customFormat(object);
     if (object instanceof ComparatorBasedComparisonStrategy) return toStringOf((ComparatorBasedComparisonStrategy) object);
@@ -313,7 +314,7 @@ public class StandardRepresentation implements Representation {
    * @return the unambiguous {@code toString} representation of the given object.
    */
   @Override
-  public String unambiguousToStringOf(Object obj) {
+  public @Nullable String unambiguousToStringOf(Object obj) {
     // some types have already an unambiguous toString, no need to double down
     if (hasAlreadyAnUnambiguousToStringOf(obj)) return toStringOf(obj);
     return obj == null ? null : String.format("%s (%s@%s)", toStringOf(obj), classNameOf(obj), identityHexCodeOf(obj));
@@ -324,7 +325,7 @@ public class StandardRepresentation implements Representation {
     return this.getClass().getSimpleName();
   }
 
-  protected <T> String customFormat(T object) {
+  protected <T> @Nullable String customFormat(T object) {
     if (object == null) return null;
     CharSequence formatted = ((Function<T, ? extends CharSequence>) customFormatterByType.get(object.getClass())).apply(object);
     return formatted != null ? formatted.toString() : null;
@@ -382,7 +383,7 @@ public class StandardRepresentation implements Representation {
     return String.format("LongAdder(%s)", longAdder.sum());
   }
 
-  protected String toStringOf(Comparator<?> comparator) {
+  protected @Nullable String toStringOf(Comparator<?> comparator) {
     if (!comparator.toString().contains("@")) return comparator.toString();
     String comparatorSimpleClassName = comparator.getClass().getSimpleName();
     if (comparatorSimpleClassName.isEmpty()) return quote("anonymous comparator class");
@@ -391,7 +392,7 @@ public class StandardRepresentation implements Representation {
     return comparator.toString();
   }
 
-  protected String toStringOf(ComparatorBasedComparisonStrategy comparatorBasedComparisonStrategy) {
+  protected @Nullable String toStringOf(ComparatorBasedComparisonStrategy comparatorBasedComparisonStrategy) {
     String comparatorDescription = comparatorBasedComparisonStrategy.getComparatorDescription();
     return comparatorDescription == null ? toStringOf(comparatorBasedComparisonStrategy.getComparator())
         : quote(comparatorDescription);
@@ -409,7 +410,7 @@ public class StandardRepresentation implements Representation {
     return String.format("local class %s", c.getSimpleName());
   }
 
-  protected String toStringOf(String s) {
+  protected @Nullable String toStringOf(String s) {
     return concatWithDoubleQuotes(s);
   }
 
@@ -417,15 +418,15 @@ public class StandardRepresentation implements Representation {
     return s.toString();
   }
 
-  protected String toStringOf(CharSequence s) {
+  protected @Nullable String toStringOf(CharSequence s) {
     return concatWithDoubleQuotes(s);
   }
 
-  private static String concatWithDoubleQuotes(CharSequence s) {
+  private static @Nullable String concatWithDoubleQuotes(CharSequence s) {
     return concat("\"", s, "\"");
   }
 
-  protected String toStringOf(Character c) {
+  protected @Nullable String toStringOf(Character c) {
     return concat("'", c, "'");
   }
 
@@ -478,7 +479,7 @@ public class StandardRepresentation implements Representation {
     return dateFormat.toPattern();
   }
 
-  protected String toStringOf(Future<?> future) {
+  protected @Nullable String toStringOf(Future<?> future) {
     String className = future.getClass().getSimpleName();
     if (!future.isDone()) return concat(className, "[Incomplete]");
     try {
@@ -497,7 +498,7 @@ public class StandardRepresentation implements Representation {
     }
   }
 
-  protected String toStringOf(Tuple tuple) {
+  protected @Nullable String toStringOf(Tuple tuple) {
     return singleLineFormat(tuple.toList(), TUPLE_START, TUPLE_END);
   }
 
@@ -509,7 +510,7 @@ public class StandardRepresentation implements Representation {
     return String.format("%s=%s", toStringOf(javaMapEntry.getKey()), toStringOf(javaMapEntry.getValue()));
   }
 
-  protected String toStringOf(Map<?, ?> map) {
+  protected @Nullable String toStringOf(Map<?, ?> map) {
     if (map == null) return null;
     Map<?, ?> sortedMap = toSortedMapIfPossible(map);
     Iterator<?> entriesIterator = sortedMap.entrySet().iterator();
@@ -578,11 +579,11 @@ public class StandardRepresentation implements Representation {
                          toStringOf(atomicStampedReference.getReference()));
   }
 
-  protected String multiLineFormat(Iterable<?> iterable) {
+  protected @Nullable String multiLineFormat(Iterable<?> iterable) {
     return format(iterable, DEFAULT_START, DEFAULT_END, ELEMENT_SEPARATOR_WITH_NEWLINE, INDENTATION_AFTER_NEWLINE, iterable);
   }
 
-  protected String singleLineFormat(Iterable<?> iterable, String start, String end) {
+  protected @Nullable String singleLineFormat(Iterable<?> iterable, String start, String end) {
     return format(iterable, start, end, ELEMENT_SEPARATOR, INDENTATION_FOR_SINGLE_LINE, iterable);
   }
 
@@ -596,7 +597,7 @@ public class StandardRepresentation implements Representation {
    * @param iterable the {@code Iterable} to format.
    * @return the {@code String} representation of the given {@code Iterable}.
    */
-  protected String smartFormat(Iterable<?> iterable) {
+  protected @Nullable String smartFormat(Iterable<?> iterable) {
     for (Class<?> blacklistedClass : BLACKLISTED_ITERABLE_CLASSES) {
       if (blacklistedClass.isInstance(iterable)) {
         return fallbackToStringOf(iterable);
@@ -614,46 +615,46 @@ public class StandardRepresentation implements Representation {
    * @param o the object that is expected to be an array.
    * @return the {@code String} representation of the given array.
    */
-  protected String formatArray(Object o) {
+  protected @Nullable String formatArray(Object o) {
     if (!isArray(o)) return null;
     return isObjectArray(o) ? smartFormat((Object[]) o) : formatPrimitiveArray(o);
   }
 
-  protected String smartFormat(Object[] array) {
+  protected @Nullable String smartFormat(Object[] array) {
     String description = singleLineFormat(array, array);
     return doesDescriptionFitOnSingleLine(description) ? description : multiLineFormat(array, array);
   }
 
-  protected String formatPrimitiveArray(Object o) {
+  protected @Nullable String formatPrimitiveArray(Object o) {
     if (!isArrayTypePrimitive(o)) throw notAnArrayOfPrimitives(o);
     List<Object> objects = new PrimitiveArrayList(o);
     return format(objects, DEFAULT_START, DEFAULT_END, ELEMENT_SEPARATOR, INDENTATION_FOR_SINGLE_LINE, objects);
   }
 
-  protected String multiLineFormat(Object[] array, Object root) {
+  protected @Nullable String multiLineFormat(Object[] array, Object root) {
     return format(array, DEFAULT_START, DEFAULT_END, ELEMENT_SEPARATOR_WITH_NEWLINE, INDENTATION_AFTER_NEWLINE, root);
   }
 
-  protected String singleLineFormat(Object[] array, Object root) {
+  protected @Nullable String singleLineFormat(Object[] array, Object root) {
     return format(array, DEFAULT_START, DEFAULT_END, ELEMENT_SEPARATOR, INDENTATION_FOR_SINGLE_LINE, root);
   }
 
-  protected String format(Object[] array, String start, String end, String elementSeparator, String indentation, Object root) {
+  protected @Nullable String format(Object[] array, String start, String end, String elementSeparator, String indentation, Object root) {
     if (array == null) return null;
     // root is used to avoid infinite recursion in case one element refers to it.
     return format(java.util.Arrays.asList(array), start, end, elementSeparator, indentation, root);
   }
 
-  protected String format(List<?> elements, String start, String end, String elementSeparator, String indentation,
+  protected @Nullable String format(List<?> elements, String start, String end, String elementSeparator, String indentation,
                           Object root) {
     if (elements == null) return null;
     if (elements.isEmpty()) return start + end;
-    List<String> representedElements = new TransformingList<>(elements, elem -> safeStringOf(elem, start, end, elementSeparator,
-                                                                                             indentation, root));
+    Function<Object, @Nullable String> transformer = elem -> safeStringOf(elem, start, end, elementSeparator, indentation, root);
+    List<@Nullable String> representedElements = new TransformingList<>(elements, transformer);
     return representGroup(representedElements, start, end, elementSeparator, indentation);
   }
 
-  protected String format(Iterable<?> iterable, String start, String end, String elementSeparator, String indentation,
+  protected @Nullable String format(Iterable<?> iterable, String start, String end, String elementSeparator, String indentation,
                           Object root) {
     if (iterable == null) return null;
     Iterator<?> iterator = iterable.iterator();
@@ -662,7 +663,7 @@ public class StandardRepresentation implements Representation {
     return representGroup(representedElements, start, end, elementSeparator, indentation);
   }
 
-  protected String safeStringOf(Object element, String start, String end, String elementSeparator, String indentation,
+  protected @Nullable String safeStringOf(Object element, String start, String end, String elementSeparator, String indentation,
                                 Object root) {
     if (element == root) return isArray(root) ? "(this array)" : "(this instance)";
     // Since potentially self referencing containers have been handled, it is reasonably safe to use toStringOf.
@@ -677,7 +678,7 @@ public class StandardRepresentation implements Representation {
 
   // private methods
 
-  private List<String> representElements(Iterable<?> elements, String start, String end, String elementSeparator,
+  private List<@Nullable String> representElements(Iterable<?> elements, String start, String end, String elementSeparator,
                                          String indentation, Object root) {
     int capacity = maxElementsForPrinting / 2 + 1;
     HeadTailAccumulator<Object> accumulator = new HeadTailAccumulator<>(capacity, capacity);
@@ -688,7 +689,7 @@ public class StandardRepresentation implements Representation {
   }
 
   // this method only deals with max number of elements to display, the elements representation is already computed
-  private static String representGroup(List<String> representedElements, String start, String end, String elementSeparator,
+  private static String representGroup(List<@Nullable String> representedElements, String start, String end, String elementSeparator,
                                        String indentation) {
     int size = representedElements.size();
     StringBuilder desc = new StringBuilder(start);
@@ -751,7 +752,7 @@ public class StandardRepresentation implements Representation {
     return duration.toString().substring(2);
   }
 
-  private String formatLines(List<?> lines) {
+  private @Nullable String formatLines(List<?> lines) {
     return format(lines, DEFAULT_START, DEFAULT_END, ELEMENT_SEPARATOR_WITH_NEWLINE, "   ", lines);
   }
 
@@ -779,7 +780,7 @@ public class StandardRepresentation implements Representation {
     }
   }
 
-  private String format(Map<?, ?> map, Object o) {
+  private @Nullable String format(Map<?, ?> map, Object o) {
     return o == map ? "(this Map)" : toStringOf(o);
   }
 }

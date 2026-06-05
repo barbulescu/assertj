@@ -46,7 +46,10 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.assertj.core.api.AssertionInfo;
+import org.assertj.core.internal.annotation.Contract;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for <code>{@link Throwable}</code>s.
@@ -90,7 +93,7 @@ public class Throwables {
     throw failures.failure(info, shouldHaveMessage(actual, expectedMessage), actual.getMessage(), expectedMessage);
   }
 
-  public void assertHasCause(AssertionInfo info, Throwable actual, Throwable expectedCause) {
+  public void assertHasCause(AssertionInfo info, Throwable actual, @Nullable Throwable expectedCause) {
     assertNotNull(info, actual);
     Throwable actualCause = actual.getCause();
     if (actualCause == expectedCause) return;
@@ -123,7 +126,7 @@ public class Throwables {
    * @param actual the given {@code Throwable}.
    * @param expectedRootCause the expected root cause.
    */
-  public void assertHasRootCause(AssertionInfo info, Throwable actual, Throwable expectedRootCause) {
+  public void assertHasRootCause(AssertionInfo info, Throwable actual, @Nullable Throwable expectedRootCause) {
     assertNotNull(info, actual);
     Throwable actualRootCause = getRootCause(actual);
     if (actualRootCause == expectedRootCause) return;
@@ -175,6 +178,7 @@ public class Throwables {
    * @throws AssertionError if the actual {@code Throwable} is {@code null}.
    * @throws AssertionError if the actual {@code Throwable} does not have a cause.
    */
+  @Contract("_, null -> fail")
   public void assertHasCause(AssertionInfo info, Throwable actual) {
     assertNotNull(info, actual);
     Throwable actualCause = actual.getCause();
@@ -190,6 +194,7 @@ public class Throwables {
    * @throws AssertionError if the actual {@code Throwable} is {@code null}.
    * @throws AssertionError if the actual {@code Throwable} does not have a root cause.
    */
+  @Contract("_, null -> fail")
   public void assertHasRootCause(AssertionInfo info, Throwable actual) {
     assertNotNull(info, actual);
     Throwable rootCause = getRootCause(actual);
@@ -444,7 +449,7 @@ public class Throwables {
   }
 
   public void assertHasSuppressedException(AssertionInfo info, Throwable actual,
-                                           Throwable expectedSuppressedException) {
+        @NonNull Throwable expectedSuppressedException) {
     assertNotNull(info, actual);
     requireNonNull(expectedSuppressedException, "The expected suppressed exception should not be null");
     Throwable[] suppressed = actual.getSuppressed();
@@ -461,6 +466,7 @@ public class Throwables {
     checkCharSequenceArrayDoesNotHaveNullElements(values);
   }
 
+  @Contract("_, null -> fail")
   private static void assertNotNull(AssertionInfo info, Throwable actual) {
     Objects.instance().assertNotNull(info, actual);
   }

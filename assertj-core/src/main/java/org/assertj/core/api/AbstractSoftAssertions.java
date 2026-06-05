@@ -23,6 +23,7 @@ import org.assertj.core.annotation.CanIgnoreReturnValue;
 import org.assertj.core.error.AssertionErrorCreator;
 import org.assertj.core.internal.Failures;
 import org.assertj.core.internal.annotation.Contract;
+import org.jspecify.annotations.Nullable;
 
 public abstract class AbstractSoftAssertions extends DefaultAssertionErrorCollector
     implements SoftAssertionsProvider, InstanceOfAssertFactories {
@@ -62,7 +63,7 @@ public abstract class AbstractSoftAssertions extends DefaultAssertionErrorCollec
    */
   @CanIgnoreReturnValue
   @Contract("_ -> fail")
-  public <T> T fail(String failureMessage) {
+  public <T> @Nullable T fail(String failureMessage) {
     AssertionError error = Failures.instance().failure(failureMessage);
     collectAssertionError(error);
     return null;
@@ -78,7 +79,7 @@ public abstract class AbstractSoftAssertions extends DefaultAssertionErrorCollec
    */
   @CanIgnoreReturnValue
   @Contract(" -> fail")
-  public <T> T fail() {
+  public <T> @Nullable T fail() {
     // pass an empty string because passing null results in a "null" error message.
     return fail("");
   }
@@ -94,7 +95,7 @@ public abstract class AbstractSoftAssertions extends DefaultAssertionErrorCollec
    */
   @CanIgnoreReturnValue
   @Contract("_, _ -> fail")
-  public <T> T fail(String failureMessage, Object... args) {
+  public <T> @Nullable T fail(String failureMessage, Object... args) {
     return fail(format(failureMessage, args));
   }
 
@@ -109,7 +110,7 @@ public abstract class AbstractSoftAssertions extends DefaultAssertionErrorCollec
    */
   @CanIgnoreReturnValue
   @Contract("_, _ -> fail")
-  public <T> T fail(String failureMessage, Throwable realCause) {
+  public <T> @Nullable T fail(String failureMessage, Throwable realCause) {
     AssertionError error = Failures.instance().failure(failureMessage);
     error.initCause(realCause);
     collectAssertionError(error);
@@ -129,7 +130,7 @@ public abstract class AbstractSoftAssertions extends DefaultAssertionErrorCollec
    */
   @CanIgnoreReturnValue
   @Contract("_ -> fail")
-  public <T> T fail(Throwable realCause) {
+  public <T> @Nullable T fail(Throwable realCause) {
     return fail("", realCause);
   }
 

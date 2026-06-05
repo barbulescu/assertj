@@ -43,6 +43,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.NonNull;
+
 // logically immutable
 public final class DualValue {
 
@@ -61,7 +63,7 @@ public final class DualValue {
     return new DualValue(rootFieldLocation(), actual, expected);
   }
 
-  public DualValue(FieldLocation fieldLocation, Object actualFieldValue, Object expectedFieldValue) {
+  public DualValue(@NonNull FieldLocation fieldLocation, Object actualFieldValue, Object expectedFieldValue) {
     this.fieldLocation = requireNonNull(fieldLocation, "fieldLocation must not be null");
     actual = actualFieldValue;
     expected = expectedFieldValue;

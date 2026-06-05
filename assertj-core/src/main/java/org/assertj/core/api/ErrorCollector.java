@@ -25,6 +25,7 @@ import net.bytebuddy.implementation.bind.annotation.StubValue;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import net.bytebuddy.implementation.bind.annotation.SuperMethod;
 import net.bytebuddy.implementation.bind.annotation.This;
+import org.jspecify.annotations.Nullable;
 
 /** Collects error messages of all AssertionErrors thrown by the proxied method. */
 public class ErrorCollector {
@@ -53,7 +54,7 @@ public class ErrorCollector {
   public static Object intercept(@FieldValue(FIELD_NAME) ErrorCollector errorCollector,
                                  @This Object assertion,
                                  @SuperCall Callable<?> proxy,
-                                 @SuperMethod(nullIfImpossible = true) Method method,
+        @Nullable @SuperMethod(nullIfImpossible = true) Method method,
                                  @StubValue Object stub) throws Exception {
     try {
       Object result = proxy.call();

@@ -24,6 +24,8 @@ import static org.assertj.core.util.Objects.hashCodeFor;
 
 import java.util.Objects;
 
+import org.jspecify.annotations.Nullable;
+
 import org.assertj.core.description.Description;
 import org.assertj.core.internal.ComparatorBasedComparisonStrategy;
 import org.assertj.core.internal.ComparisonStrategy;
@@ -221,7 +223,7 @@ public class ShouldBeEqual implements AssertionErrorFactory {
                                   actualRepresentation);
   }
 
-  private AssertionError assertionFailedError(String message, Representation representation) {
+  private @Nullable AssertionError assertionFailedError(String message, Representation representation) {
     try {
       Object o = constructorInvoker.newInstance("org.opentest4j.AssertionFailedError",
                                                 MSG_ARG_TYPES_FOR_ASSERTION_FAILED_ERROR,
@@ -239,7 +241,7 @@ public class ShouldBeEqual implements AssertionErrorFactory {
     }
   }
 
-  private AssertionError comparisonFailure(Description description) {
+  private @Nullable AssertionError comparisonFailure(Description description) {
     try {
       AssertionError comparisonFailure = newComparisonFailure(descriptionFormatter.format(description).trim());
       Failures.instance().removeAssertJRelatedElementsFromStackTraceIfNeeded(comparisonFailure);
@@ -249,7 +251,7 @@ public class ShouldBeEqual implements AssertionErrorFactory {
     }
   }
 
-  private AssertionError newComparisonFailure(String description) throws Exception {
+  private @Nullable AssertionError newComparisonFailure(String description) throws Exception {
     Object o = constructorInvoker.newInstance("org.junit.ComparisonFailure",
                                               MSG_ARG_TYPES,
                                               description,

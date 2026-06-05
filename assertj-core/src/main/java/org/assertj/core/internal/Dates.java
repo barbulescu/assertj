@@ -60,6 +60,7 @@ import java.util.concurrent.TimeUnit;
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.error.ShouldBeEqualWithTimePrecision;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Reusable assertions for <code>{@link Date}</code>s.
@@ -94,7 +95,7 @@ public class Dates {
   }
 
   @VisibleForTesting
-  public Comparator<?> getComparator() {
+  public @Nullable Comparator<?> getComparator() {
     if (comparisonStrategy instanceof ComparatorBasedComparisonStrategy) {
       return ((ComparatorBasedComparisonStrategy) comparisonStrategy)
                                                                      .getComparator();

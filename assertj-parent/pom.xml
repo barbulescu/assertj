@@ -26,6 +26,7 @@
     <bnd.version>7.2.1</bnd.version>
     <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
     <japicmp-maven-plugin.version>0.23.0</japicmp-maven-plugin.version>
+    <jspecify.version>1.0.0</jspecify.version>
     <maven-project-info-reports-plugin.version>3.8.0</maven-project-info-reports-plugin.version>
     <spotbugs-maven-plugin.version>4.8.6.6</spotbugs-maven-plugin.version>
     <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
@@ -56,6 +57,11 @@
         <groupId>org.opentest4j</groupId>
         <artifactId>opentest4j</artifactId>
         <version>${opentest4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jspecify</groupId>
+        <artifactId>jspecify</artifactId>
+        <version>${jspecify.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -172,6 +178,24 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
           <version>${versions-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>am.ik.maven</groupId>
+          <artifactId>nullability-maven-plugin</artifactId>
+          <version>0.4.0</version>
+          <extensions>true</extensions>
+          <configuration>
+            <checking>disabled</checking>
+            <skip>false</skip>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>configure</goal>
+                <goal>generate-package-info</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>

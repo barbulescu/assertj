@@ -30,6 +30,7 @@ import org.assertj.core.description.Description;
 import org.assertj.core.internal.ComparatorBasedComparisonStrategy;
 import org.assertj.core.internal.ComparisonStrategy;
 import org.assertj.core.internal.TestDescription;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -165,7 +166,7 @@ class ShouldBeEqual_newAssertionError_differentiating_expected_and_actual_Test {
 
   public static class ToStringIsNull {
     @Override
-    public String toString() {
+    public @Nullable String toString() {
       return null;
     }
   }

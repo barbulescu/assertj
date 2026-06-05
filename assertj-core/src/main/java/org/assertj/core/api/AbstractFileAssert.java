@@ -31,6 +31,7 @@ import java.util.function.Predicate;
 import org.assertj.core.annotation.CheckReturnValue;
 import org.assertj.core.internal.Files;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base class for all implementations of assertions for {@link File}s.
@@ -550,7 +551,7 @@ public abstract class AbstractFileAssert<SELF extends AbstractFileAssert<SELF>> 
    * @throws NullPointerException if the given charset is {@code null}.
    */
   @CheckReturnValue
-  public SELF usingCharset(Charset charset) {
+  public SELF usingCharset(@NonNull Charset charset) {
     this.charset = requireNonNull(charset, "The charset should not be null");
     return myself;
   }

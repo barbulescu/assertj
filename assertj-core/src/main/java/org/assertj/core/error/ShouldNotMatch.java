@@ -21,6 +21,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 import org.assertj.core.presentation.PredicateDescription;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Creates an error message indicating that an assertion that verifies that a value not satisfying a

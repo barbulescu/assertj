@@ -42,6 +42,7 @@ import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.data.Index;
 import org.assertj.core.data.Offset;
 import org.assertj.core.data.Percentage;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Alex Ruiz
@@ -80,7 +81,7 @@ public final class CommonValidations {
     if (!iterable.iterator().hasNext()) throw iterableOfValuesToLookForIsEmpty();
   }
 
-  public static void checkIsNotNull(Object[] values) {
+  public static void checkIsNotNull(@NonNull Object[] values) {
     if (values == null) throw arrayOfValuesToLookForIsNull();
   }
 
@@ -170,19 +171,19 @@ public final class CommonValidations {
       throw FAILURES.failure(info, shouldHaveLinesCount(actual, lineCountOfActual, lineCountOfOther));
   }
 
-  public static void checkTypeIsNotNull(Class<?> expectedType) {
+  public static void checkTypeIsNotNull(@NonNull Class<?> expectedType) {
     requireNonNull(expectedType, "The given type should not be null");
   }
 
-  public static void checkIterableIsNotNull(Iterable<?> set) {
+  public static void checkIterableIsNotNull(@NonNull Iterable<?> set) {
     requireNonNull(set, "The iterable to look for should not be null");
   }
 
-  public static void checkSequenceIsNotNull(Object sequence) {
+  public static void checkSequenceIsNotNull(@NonNull Object sequence) {
     requireNonNull(sequence, nullSequence());
   }
 
-  public static void checkSubsequenceIsNotNull(Object subsequence) {
+  public static void checkSubsequenceIsNotNull(@NonNull Object subsequence) {
     requireNonNull(subsequence, nullSubsequence());
   }
 }

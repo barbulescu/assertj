@@ -42,6 +42,7 @@ import java.util.Objects;
 
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.util.VisibleForTesting;
+import org.jspecify.annotations.NonNull;
 
 public class Urls {
 
@@ -83,7 +84,7 @@ public class Urls {
     if (actual.getPort() != expected) throw failures.failure(info, shouldHavePort(actual, expected));
   }
 
-  public void assertHasHost(AssertionInfo info, URL actual, String expected) {
+  public void assertHasHost(AssertionInfo info, URL actual, @NonNull String expected) {
     assertNotNull(info, actual);
     requireNonNull(expected, "The expected host should not be null");
     if (!Objects.equals(actual.getHost(), expected)) throw failures.failure(info, shouldHaveHost(actual, expected));
